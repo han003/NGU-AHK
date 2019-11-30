@@ -158,7 +158,7 @@ BasicChallenge() {
                 MoveMouseCoordinates(Coordinates.Wandoos)
 
                 DistributeEnergyCap(Coordinates.WandoosEnergyDecrease)
-                DistributeMagicCap(Coordinates.WandoosMagicDecrease)
+                MoveMouseCoordinates(Coordinates.WandoosMagicDecrease)
             }
 
             ; Decide distributions
