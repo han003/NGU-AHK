@@ -1,9 +1,14 @@
+; 1280x800
+
+CoordMode "Mouse", "Window"
+CoordMode "Pixel", "Window"
 SetMouseDelay 45
 
 #SingleInstance force
 
 #Include AdventureZones.ahk
 #Include Coordinates.ahk
+#Include Bosses.ahk
 
 global UserHighestZone := 150
 global WindowName := "NGU Idle"
@@ -17,21 +22,36 @@ DebugGui.Show()
 
 Debug(Text) {
     DebugText := DebugText "`n`n" Text
+    DebugText := SubStr(DebugText, -1000)
     DebugEdit.Value := DebugText
     ControlSend "^{END}", DebugEdit
 }
 
+PixelToPos(X, Y) {
+    WinGetPos WinX, WinY, Width, Height, WindowName
+    return {
+        X: X / Width,
+        Y: Y / Height
+    }
+}
+
+PosToPixel(Position) {
+    WinGetPos WinX, WinY, Width, Height, WindowName
+    return {
+        X: Position.X * Width,
+        Y: Position.Y * Height
+    }
+}
+
 F1::
-MouseGetPos X, Y
-Clipboard := "{X: " X ", Y: " Y "}"
-Debug("Mouse at: " X "x" Y)
+MouseGetPos MouseX, MouseY
+Pos := PixelToPos(MouseX, MouseY)
+Clipboard := "{X: " Pos.X ", Y: " Pos.Y "}"
+Debug("Mouse at: " Pos.X "x" Pos.Y)
 return
 
 F2::
-MoveMouseCoordinates(Coordinates.SideMenuRebirth)
-MoveMouseCoordinates(Coordinates.RebirthChallenges)
-MoveMouseCoordinates(Coordinates.RebirthChallengesBasic)
-MoveMouseCoordinates(Coordinates.RebirthYes)
+GetCurrentBoss()
 return
 
 F3::
@@ -46,7 +66,9 @@ BasicChallenge()
 return
 
 F5::
-Run30Min
+ColorString := GetFightBossColorString()
+Debug(ColorString)
+Clipboard := ColorString
 return
 
 F6::
@@ -60,6 +82,15 @@ return
 Esc::
 ExitApp
 return
+
+GetFightBossColorString() {
+    ColorString := ""
+    For PixPos in Coordinates.FightBossCheckPixels {
+        Position := PosToPixel(PixPos)
+        ColorString := ColorString PixelGetColor(Position.X, Position.Y)
+    }
+    return ColorString
+}
 
 BasicChallenge() {
     ; Reclaim
@@ -77,7 +108,7 @@ BasicChallenge() {
         StartTime := A_TickCount
         KilledBoss := false
 
-        if (FeatureUnlocked(Coordinates.Augmentation)) {
+        if (FeatureUnlocked(Coordinates.BeardsOfPower)) {
             ActivateBeard(Coordinates.BeardsOfPowerTheFuManchu)
         }
 
@@ -87,7 +118,7 @@ BasicChallenge() {
 
             ; Check boss
             OldBoss := CurrentBoss
-            CurrentBoss := GetCurrentBoss(CurrentBoss)
+            CurrentBoss := GetCurrentBoss()
 
             ; If done or not
             if (CurrentBoss > 58) {
@@ -192,35 +223,21 @@ BasicChallenge() {
 }
 
 ; Tested to #70 (inclusive)
-GetCurrentBoss(CurrentBoss) {
-    if (CurrentBoss > 0) {
-        CurrentBoss := CurrentBoss - 1
-    }
-
+GetCurrentBoss() {
     MoveMouseCoordinates(Coordinates.FightBoss)
 
-    TopLeft := {X: 940, Y: 85}
-    BottomRight := {X: 1350, Y: 150}
-    FoundIndex := 0
+    CurrentBoss := ""
+    ColorString := GetFightBossColorString()
 
-    Loop UserHighestZone {
-        ImagePath := "*32 " Path "\FightBoss\BossesText\" A_Index + CurrentBoss ".png"
-
-        Debug("Searching for image:`n" ImagePath)
-
-        try {
-            ImageSearch FoundX, FoundY, TopLeft.X, TopLeft.Y, BottomRight.X, BottomRight.Y, ImagePath
-        } catch Exc {
-            ; Just catch
-        }
-
-        if (FoundX && FoundY) {
-            CurrentBoss := A_Index + CurrentBoss
+    For Boss in Bosses {
+        Debug(Boss.ColorString)
+        if (Boss.ColorString == ColorString) {
+            CurrentBoss := Boss
             break
         }
     }
 
-    Debug("Current boss is #" CurrentBoss)
+    Debug("Current boss is " CurrentBoss.Name " (" CurrentBoss.Nr ")")
     return CurrentBoss
 }
 
@@ -253,7 +270,7 @@ CheckPixelSame(Position) {
 
 FightUntilDead() {
     DeadColor := 0xFFFFFF
-    DeadCheckCoordinates := {X: 442, Y: 519}
+    DeadCheckCoordinates := Coordinates.FightBossDeadCheck
     IAmDead := false
 
     MoveMouseCoordinates(Coordinates.FightBoss)
@@ -267,8 +284,6 @@ FightUntilDead() {
         IAmDead := PCol == DeadColor
     }
 }
-
-
 
 FindHighestZone() {
     MoveMouseCoordinates(Coordinates.FightBoss)
@@ -339,6 +354,7 @@ ImageExists(ImagePath) {
 }
 
 MoveMouseCoordinates(Coordinates, DoClick := true) {
+    Coordinates := PosToPixel(Coordinates)
     Debug("Move mouse to (" Coordinates.X "," Coordinates.Y ")`nClick: " DoClick)
     SendEvent "{Click " Coordinates.X ", " Coordinates.Y "}"
     

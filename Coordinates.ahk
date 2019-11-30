@@ -41,11 +41,11 @@ Coordinates.InventoryY12 := 1263
 
 ; FEATURES
 Coordinates.BasicTraining := {X: 398, Y: 50}
-Coordinates.FightBoss := {X: 397, Y: 91}
+Coordinates.FightBoss := {X: 0.29704510108864696, Y: 0.13630880579010857}
 Coordinates.MoneyPit := {X: 397, Y: 130}
 Coordinates.Adventure := {X: 394, Y: 172}
 Coordinates.Inventory := {X: 396, Y: 211}
-Coordinates.Augmentation := {X: 395, Y: 252}
+Coordinates.Augmentation := {X: 379, Y: 270} ;
 Coordinates.AdvancedTraining := {X: 394, Y: 291}
 Coordinates.TimeMachine := {X: 396, Y: 333}
 Coordinates.BloodMagic := {X: 397, Y: 373}
@@ -53,7 +53,8 @@ Coordinates.Wandoos := {X: 394, Y: 414}
 Coordinates.NGU := {X: 394, Y: 454}
 Coordinates.Yggdrasil := {X: 396, Y: 496}
 Coordinates.GoldDiggers := {X: 396, Y: 533}
-Coordinates.BeardsOfPower := {X: 397, Y: 576}
+Coordinates.BeardsOfPower := {X: 380, Y: 576} ;
+Coordinates.BeardsOfPower := {X: 0.29598893499308437, Y: 0.69644779332615714} ;
 
 ; BLOOD MAGIC
 Coordinates.BloodMagicPokeYourselfIncrease := {X: 693, Y: 315}
@@ -73,14 +74,20 @@ Coordinates.WandoosMagicDecrease:= {X: 820, Y: 481}
 Coordinates.WandoosMagicCap:= {X: 865, Y: 488}
 
 ; FIGHT BOSS
-Coordinates.FightBossNuke := {X: 840, Y: 217}
-Coordinates.FightBossFight := {X: 868, Y: 346}
-Coordinates.FightBossStop := {X: 877, Y: 291}
+Coordinates.FightBossNuke := {X: 837, Y: 236} ;
+Coordinates.FightBossFight := {X: 832, Y: 382} ;
+Coordinates.FightBossStop := {X: 836, Y: 297} ;
+Coordinates.FightBossDeadCheck := {X: 423, Y: 525} ;
+Coordinates.FightBossBossNameTopLeft := {X: 890, Y: 90} ;
+Coordinates.FightBossBossNameBottomRight := {X: 1310, Y: 200} ;
 
-Coordinates.FightBossCheckPixel1 := {X: 1088, Y: 200}
-Coordinates.FightBossCheckPixel2 := {X: 1195, Y: 404}
-Coordinates.FightBossCheckPixel3 := {X: 1236, Y: 313}
-Coordinates.FightBossCheckPixel4 := {X: 1033, Y: 382}
+Coordinates.FightBossCheckPixels := [
+    {X: 0.77916018662519437, Y: 0.22436670687575391},
+    {X: 0.78849144634525659, Y: 0.38721351025331724},
+    {X: 0.84758942457231723, Y: 0.4439083232810615},
+    {X: 0.93234836702954904, Y: 0.4089264173703257},
+    {X: 0.92768273716951788, Y: 0.34258142340168879}
+]
 
 ; TIME MACHINE
 Coordinates.TimeMachineSpeedIncrease := {X: 754, Y: 319}
@@ -119,15 +126,15 @@ Coordinates.AugmentationChargeShotIncrease := {X: 749, Y: 765}
 Coordinates.AugmentationChargeShotIncrease := {X: 797, Y: 764}
 
 ; BEARDS
-Coordinates.BeardsOfPowerClear := {X: 643, Y: 321}
-Coordinates.BeardsOfPowerTheFuManchu := {X: 440, Y: 440}
+Coordinates.BeardsOfPowerClear := {X: 618, Y: 328} ;
+Coordinates.BeardsOfPowerTheFuManchu := {X: 427, Y: 450} ;
 Coordinates.BeardsOfPowerTheNeckbeard := {X: 477, Y: 438}
 Coordinates.BeardsOfPowerTheReverseHitler := {X: 436, Y: 479}
 Coordinates.BeardsOfPowerTheBeardCage := {X: 476, Y: 480}
 Coordinates.BeardsOfPowerTheLadyBeard := {X: 433, Y: 510}
 Coordinates.BeardsOfPowerTheBEARd := {X: 475, Y: 508}
 Coordinates.BeardsOfPowerTheGoldenBeard := {X: 458, Y: 548}
-Coordinates.BeardsOfPowerActiveToggle := {X: 444, Y: 327}
+Coordinates.BeardsOfPowerActiveToggle := {X: 425, Y: 338}
 
 ; REBIRTH
 Coordinates.RebirthRebirth := {X: 820, Y: 723}
