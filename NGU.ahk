@@ -2,7 +2,7 @@
 
 CoordMode "Mouse", "Window"
 CoordMode "Pixel", "Window"
-SetMouseDelay 45
+SetMouseDelay 40
 
 #SingleInstance force
 
@@ -16,7 +16,7 @@ global Path := "C:\Users\joarj\Desktop\NGU"
 
 global DebugText := ""
 global DebugGui := GuiCreate()
-global DebugEdit := DebugGui.Add("Edit", "w400 vDebugEdit r20 ReadOnly")
+global DebugEdit := DebugGui.Add("Edit", "w450 vDebugEdit r60 ReadOnly")
 DebugGui.Title := "NGU Debugger"
 DebugGui.Show()
 
@@ -107,7 +107,6 @@ BasicChallenge() {
         RunTimeMin := 15
         CurrentBoss := Bosses[1]
         StartTime := A_TickCount
-        KilledBoss := false
 
         if (FeatureUnlocked(Coordinates.BeardsOfPower)) {
             ActivateBeard(Coordinates.BeardsOfPowerTheFuManchu)
@@ -119,7 +118,7 @@ BasicChallenge() {
 
             ; Check boss
             OldBoss := CurrentBoss
-            CurrentBoss := GetCurrentBoss()
+            CurrentBoss := GetCurrentBoss(CurrentBoss)
 
             ; If done or not
             if (CurrentBoss.Nr > 58) {
@@ -158,7 +157,7 @@ BasicChallenge() {
             if (!HasBloodMagic) {
                 ; Defaults without blood magic
                 ; Energy
-                AugmentIncrease := CurrentBoss.Nr >= 37 ? 10 : 15
+                AugmentIncrease := CurrentBoss.Nr > 37 ? 10 : 15
                 AugmentHelpIncrease := 5
                 TimeMachineSpeed := 35
                 WandoosEnergy := 50
@@ -170,7 +169,7 @@ BasicChallenge() {
                 if (!HasTimeMachine) {
                     ; Defaults without time machine
                     ; Energy
-                    AugmentIncrease := CurrentBoss.Nr >= 37 ? 5 : 10
+                    AugmentIncrease := CurrentBoss.Nr > 37 ? 5 : 10
                     AugmentHelpIncrease := 5
                     WandoosEnergy := 90
 
@@ -200,8 +199,12 @@ BasicChallenge() {
             if (HasAugments) {
                 MoveMouseCoordinates(Coordinates.Augmentation)
 
-                DistributeEnergy(Coordinates.AugmentationSafetyScissorsIncrease, AugmentIncrease)
-                DistributeEnergy(Coordinates.AugmentationDangerScissorsIncrease, AugmentHelpIncrease)
+                if (CurrentBoss.Nr > 37) {
+                    DistributeEnergy(Coordinates.AugmentationSafetyScissorsIncrease, AugmentIncrease)
+                    DistributeEnergy(Coordinates.AugmentationDangerScissorsIncrease, AugmentHelpIncrease)
+                } else {
+                    DistributeEnergy(Coordinates.AugmentationMilkInfusion, AugmentIncrease + AugmentHelpIncrease)
+                }
             }
 
             ; Time machine if possible
@@ -223,10 +226,10 @@ BasicChallenge() {
             MoveMouseCoordinates(Coordinates.Wandoos)
             
             FinalDistributeStart := A_TickCount
-            While (A_TickCount - FinalDistributeStart < 30000) {
+            While (A_TickCount - FinalDistributeStart < 60000) {
                 DistributeEnergy(Coordinates.WandoosEnergyIncrease, WandoosEnergy)
                 DistributeEnergy(Coordinates.WandoosMagicIncrease, WandoosMagic)
-                Sleep 1000
+                Sleep 5000
             }
         }
 
@@ -234,14 +237,12 @@ BasicChallenge() {
     }
 }
 
-GetCurrentBoss() {
+GetCurrentBoss(CurrentBoss := "") {
     MoveMouseCoordinates(Coordinates.FightBoss)
 
-    CurrentBoss := ""
     ColorString := GetFightBossColorString()
 
     For Boss in Bosses {
-        Debug(Boss.ColorString)
         if (Boss.ColorString == ColorString) {
             CurrentBoss := Boss
             break
@@ -250,10 +251,6 @@ GetCurrentBoss() {
 
     if (CurrentBoss == "") {
         Debug("Couldn't find current boss")
-        CurrentBoss := {
-            Name: "Unknown",
-            Nr: 0
-        }
     } else {
         Debug("Current boss is " CurrentBoss.Name " (" CurrentBoss.Nr ")")
     }
@@ -312,52 +309,6 @@ MoveMouseCoordinates(Coordinates, DoClick := true) {
     }
 
     Sleep 250
-}
-
-Run30Min() {
-    ; Step 1 is to get money
-    MoneyHoardingMinutes := 20
-    While A_TimeSinceThisHotkey < MoneyHoardingMinutes * 60 * 1000 {
-        ; Do a nuke
-        Nuke()
-
-        ; Go to furthest zone after nuke
-        GoToFurthestAdventureZone()
-
-        ; Add more energy and magic to time machine
-        MoveMouseCoordinates(Coordinates.TimeMachine)
-
-        ; Add max for a minute
-        Loop 12 {
-            Debug("Distributing energy and magic " A_Index)
-            DistributeEnergy(Coordinates.TimeMachineSpeedIncrease, 100)
-            DistributeMagic(Coordinates.TimeMachineMultiplierIncrease, 100) 
-            Sleep 5000
-        }
-    }
-
-    ; Put the money to use
-    ; Start augmenting
-    MoveMouseCoordinates(Coordinates.Augmentation)
-    ReclaimEnergy()
-    DistributeEnergy(Coordinates.AugmentationMilkInfusionIncrease, 50)
-    DistributeEnergy(Coordinates.AugmentationDrinkingTheMilkTooIncrease, 10)
-
-    ; Fire up wandoos
-    MoveMouseCoordinates(Coordinates.Wandoos)
-    ReclaimMagic()
-    DistributeEnergy(Coordinates.WandoosEnergyIncrease, 40)
-    DistributeEnergy(Coordinates.WandoosMagicIncrease, 100)
-
-    ; Wait until 30 minutes
-    Sleep ((30 - MoneyHoardingMinutes) * 60 * 1000) + 10000
-
-    ; Do it again
-    Rebirth()
-
-    Sleep 1000
-
-    Run30Min()
 }
 
 ReclaimEnergy() {
