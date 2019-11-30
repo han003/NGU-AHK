@@ -51,9 +51,7 @@ Debug("Mouse at: " Pos.X "x" Pos.Y)
 return
 
 F2::
-MoveMouseCoordinates(Coordinates.GoldDiggers)
-MoveMouseCoordinates(Coordinates.GoldDiggersClearActive)
-MoveMouseCoordinates(Coordinates.GoldDiggersClearActive)
+MoneyPitFeedAndSpin()
 return
 
 F3::
@@ -248,13 +246,26 @@ BasicChallenge() {
             FinalDistributeStart := A_TickCount
             While (A_TickCount - FinalDistributeStart < 60000) {
                 DistributeEnergy(Coordinates.WandoosEnergyIncrease, WandoosEnergy)
-                DistributeEnergy(Coordinates.WandoosMagicIncrease, WandoosMagic)
+                DistributeMagic(Coordinates.WandoosMagicIncrease, WandoosMagic)
                 Sleep 5000
             }
         }
 
+        ; Use the money
+        MoneyPitFeedAndSpin()
+
+        ; Start anew
         Rebirth()
     }
+}
+
+MoneyPitFeedAndSpin() {
+    MoveMouseCoordinates(Coordinates.MoneyPit)
+    MoveMouseCoordinates(Coordinates.MoneyPitFeed)
+    MoveMouseCoordinates(Coordinates.MoneyPitFeedYes)
+    MoveMouseCoordinates(Coordinates.MoneyPitDailySpin)
+    MoveMouseCoordinates(Coordinates.MoneyPitDailySpin)
+    MoveMouseCoordinates(Coordinates.MoneyPitDailySpinNoBS)
 }
 
 GetCurrentBoss(CurrentBoss := "") {
@@ -345,16 +356,6 @@ ReclaimMagic() {
     Sleep 300
 }
 
-DistributeEnergy(Position, Percent) {
-    MoveMouseCoordinates(Coordinates.InputField)
-    Send Percent
-
-    SendEvent "+{Click " PosToPixel(Coordinates.EnergyPercentButton).X ", " PosToPixel(Coordinates.EnergyPercentButton).Y "}"  ; Shift+LeftClick
-    SendEvent "{Click}"
-
-    MoveMouseCoordinates(Position)
-}
-
 CheckMoneyPit() {
     PitAvailableColor := 0x7ACA39
 
@@ -373,6 +374,18 @@ DistributeMagic(Position, Percent) {
     Send Percent
 
     SendEvent "+{Click " PosToPixel(Coordinates.MagicPercentButton).X ", " PosToPixel(Coordinates.MagicPercentButton).Y "}"  ; Shift+LeftClick
+    Sleep 200
+    SendEvent "{Click}"
+
+    MoveMouseCoordinates(Position)
+}
+
+DistributeEnergy(Position, Percent) {
+    MoveMouseCoordinates(Coordinates.InputField)
+    Send Percent
+
+    SendEvent "+{Click " PosToPixel(Coordinates.EnergyPercentButton).X ", " PosToPixel(Coordinates.EnergyPercentButton).Y "}"  ; Shift+LeftClick
+    Sleep 200
     SendEvent "{Click}"
 
     MoveMouseCoordinates(Position)
