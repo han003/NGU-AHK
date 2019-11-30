@@ -105,7 +105,7 @@ BasicChallenge() {
     ;; Start actual important stuff
     Loop {
         RunTimeMin := 15
-        CurrentBoss := {Nr: 0}
+        CurrentBoss := Bosses[1]
         StartTime := A_TickCount
         KilledBoss := false
 
@@ -234,7 +234,6 @@ BasicChallenge() {
     }
 }
 
-; Tested to #70 (inclusive)
 GetCurrentBoss() {
     MoveMouseCoordinates(Coordinates.FightBoss)
 
@@ -249,7 +248,16 @@ GetCurrentBoss() {
         }
     }
 
-    Debug("Current boss is " CurrentBoss.Name " (" CurrentBoss.Nr ")")
+    if (CurrentBoss == "") {
+        Debug("Couldn't find current boss")
+        CurrentBoss := {
+            Name: "Unknown",
+            Nr: 0
+        }
+    } else {
+        Debug("Current boss is " CurrentBoss.Name " (" CurrentBoss.Nr ")")
+    }
+    
     return CurrentBoss
 }
 
