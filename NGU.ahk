@@ -51,7 +51,7 @@ Debug("Mouse at: " Pos.X "x" Pos.Y)
 return
 
 F2::
-GetCurrentBoss()
+FeatureUnlocked(Coordinates.BloodMagic)
 return
 
 F3::
@@ -104,7 +104,8 @@ BasicChallenge() {
 
     ;; Start actual important stuff
     Loop {
-        CurrentBoss := 0
+        RunTimeMin := 15
+        CurrentBoss := {Nr: 0}
         StartTime := A_TickCount
         KilledBoss := false
 
@@ -112,7 +113,7 @@ BasicChallenge() {
             ActivateBeard(Coordinates.BeardsOfPowerTheFuManchu)
         }
 
-        While (A_TickCount - StartTime < 15 * 60 * 1000) {
+        While (A_TickCount - StartTime < RunTimeMin * 60 * 1000) {
             ; Increase boss #
             FightUntilDead()
 
@@ -121,16 +122,16 @@ BasicChallenge() {
             CurrentBoss := GetCurrentBoss()
 
             ; If done or not
-            if (CurrentBoss > 58) {
+            if (CurrentBoss.Nr > 58) {
                 MoveMouseCoordinates(Coordinates.SideMenuRebirth)
                 MoveMouseCoordinates(Coordinates.RebirthChallenges)
                 MoveMouseCoordinates(Coordinates.RebirthChallengesBasic)
                 MoveMouseCoordinates(Coordinates.RebirthYes)
                 BasicChallenge()
             }
-
+          
             ; Go to zone
-            if (OldBoss != CurrentBoss) {
+            if (OldBoss.Nr != CurrentBoss.Nr) {
                 GoToFurthestAdventureZoneLowLevel()
             }
 
@@ -144,7 +145,7 @@ BasicChallenge() {
 
             ; Defaults with all unlocked
             ; Energy
-            AugmentIncrease := 10
+            AugmentIncrease := CurrentBoss.Nr >= 37 ? 10 : 15
             AugmentHelpIncrease := 5
             TimeMachineSpeed := 35
             WandoosEnergy := 50
@@ -157,7 +158,7 @@ BasicChallenge() {
             if (!HasBloodMagic) {
                 ; Defaults without blood magic
                 ; Energy
-                AugmentIncrease := 10
+                AugmentIncrease := CurrentBoss.Nr >= 37 ? 10 : 15
                 AugmentHelpIncrease := 5
                 TimeMachineSpeed := 35
                 WandoosEnergy := 50
@@ -165,23 +166,35 @@ BasicChallenge() {
                 ; Magic
                 TimeMachineMultiplier := 40
                 WandoosMagic := 60
-            } else if (!HasTimeMachine) {
-                ; Defaults without time machine
-                ; Energy
-                AugmentIncrease := 5
-                AugmentHelpIncrease := 5
-                WandoosEnergy := 90
 
-                ; Magic
-                WandoosMagic := 100
-            } else if (!HasAugments) {
-                ; Defaults without augments
-                ; Energy
-                WandoosEnergy := 100
+                if (!HasTimeMachine) {
+                    ; Defaults without time machine
+                    ; Energy
+                    AugmentIncrease := CurrentBoss.Nr >= 37 ? 5 : 10
+                    AugmentHelpIncrease := 5
+                    WandoosEnergy := 90
 
-                ; Magic
-                WandoosMagic := 100
+                    ; Magic
+                    WandoosMagic := 100
+
+                    if (!HasAugments) {
+                        ; Defaults without augments
+                        ; Energy
+                        WandoosEnergy := 100
+
+                        ; Magic
+                        WandoosMagic := 100
+                    }
+                }
             }
+
+            Debug("AugmentIncrease " AugmentIncrease)
+            Debug("AugmentHelpIncrease " AugmentHelpIncrease)
+            Debug("TimeMachineSpeed " TimeMachineSpeed)
+            Debug("WandoosEnergy " WandoosEnergy)
+            Debug("TimeMachineMultiplier " TimeMachineMultiplier)
+            Debug("BloodMagic " BloodMagic)
+            Debug("WandoosMagic " WandoosMagic)
 
             ; Increase augments if possible
             if (HasAugments) {
@@ -214,7 +227,6 @@ BasicChallenge() {
                 DistributeEnergy(Coordinates.WandoosEnergyIncrease, WandoosEnergy)
                 DistributeEnergy(Coordinates.WandoosMagicIncrease, WandoosMagic)
                 Sleep 1000
-                Debug("Tick " A_TickCount - FinalDistributeStart)
             }
         }
 
@@ -249,28 +261,26 @@ ActivateBeard(BeardPosition) {
 }
 
 FeatureUnlocked(Position) {
-    LockedColor := 0x97A8B6
-    PCol := PixelGetColor(Position.X, Position.Y)
-    Unlocked := PCol !== LockedColor
+    LockedColors := ["0x97A8B6", "0x7C4B93"]
+    PCol := PixelGetColor(PosToPixel(Position).X, PosToPixel(Position).Y)
+
+    Unlocked := true
+
+    for LockCol in LockedColors {
+        if (PCol == LockCol) {
+            Unlocked := false
+            break
+        }
+    }
 
     Debug("Feature at " Position.X "," Position.Y " is unlocked: " Unlocked)
 
     return Unlocked
 }
 
-CheckPixelSame(Position) {
-    InitialColor := PixelGetColor Position.X, Position.Y
-    Debug("Initial color is " InitialColor)
-    Sleep 1000
-    NewColor := PixelGetColor Position.X, Position.Y
-    Debug("New color is " NewColor)
-
-    return InitialColor == NewColor
-}
-
 FightUntilDead() {
-    DeadColor := 0xFFFFFF
-    DeadCheckCoordinates := Coordinates.FightBossDeadCheck
+    DeadColor := "0xFFFFFF"
+    DeadCheckCoordinates := PosToPixel(Coordinates.FightBossDeadCheck)
     IAmDead := false
 
     MoveMouseCoordinates(Coordinates.FightBoss)
@@ -285,77 +295,8 @@ FightUntilDead() {
     }
 }
 
-FindHighestZone() {
-    MoveMouseCoordinates(Coordinates.FightBoss)
-
-    Debug("Searching for highest boss")
-
-    Zone := AdventureZones.NoZone
-    FoundIndex := 0
-
-    TopLeftCorner := {X: 1015, Y: 162}
-    BottomRightCorner := {X: 1269, Y: 412}
-
-    ; Check pixels so that we know we are not in the progress of nuking or fighting
-    While !CheckPixelSame(Coordinates.FightBossCheckPixel1) {
-        Sleep 1000
-    }
-
-
-    Loop UserHighestZone {
-        try {
-            ImagePath := "*32 " Path "\FightBoss\Bosses\" A_Index ".png"
-
-            Debug("Searching for image:`n" ImagePath)
-
-            ImageSearch FoundX, FoundY, TopLeftCorner.X, TopLeftCorner.Y, BottomRightCorner.X, BottomRightCorner.Y, ImagePath
-
-               if (FoundX && FoundY) {
-                    FoundIndex := A_Index
-
-                    Debug("Found at index " FoundIndex)
-
-                    for ZoneName in AdventureZones.OwnProps() {
-                        Zone := AdventureZones.%ZoneName%
-
-                        Debug("Checking zone " ZoneName)
-
-                        if (Zone.To >= FoundIndex && Zone.From <= FoundIndex) {
-                            Debug("Highest zone is " ZoneName)
-                            break
-                        }
-                    }
-                    break
-                }
-        } catch Exc {
-        }
-    }
-
-    Debug("Highest boss is #" FoundIndex " in " Zone.Name)
-    return Zone
-}
-
-ImageExists(ImagePath) {
-    WinGetPos X, Y, Width, Height, WindowName
-    
-    try {
-        Image := "*32 " Path "\" ImagePath ".png"
-        Debug("Image exists?`n" Image)
-
-        ImageSearch FoundX, FoundY, 0, 0, Width, Height, Image
-
-        if (FoundX && FoundY) {
-            Debug("Exists at: " FoundX "x" FoundY)
-            return {x: FoundX, y: FoundY}
-        } 
-    } catch Exc {
-        ; Dont put anything here
-    }
-}
-
 MoveMouseCoordinates(Coordinates, DoClick := true) {
     Coordinates := PosToPixel(Coordinates)
-    Debug("Move mouse to (" Coordinates.X "," Coordinates.Y ")`nClick: " DoClick)
     SendEvent "{Click " Coordinates.X ", " Coordinates.Y "}"
     
     if (!DoClick) {
@@ -363,14 +304,6 @@ MoveMouseCoordinates(Coordinates, DoClick := true) {
     }
 
     Sleep 250
-}
-
-MoveMouseImage(ImagePath, ClickMouse := true) {
-    Position := ImageExists(ImagePath)
-    
-    if (Position){
-        MoveMouseCoordinates(Position, ClickMouse)
-    }
 }
 
 Run30Min() {
@@ -437,7 +370,7 @@ DistributeEnergy(Position, Percent) {
     MoveMouseCoordinates(Coordinates.InputField)
     Send Percent
 
-    SendEvent "+{Click " Coordinates.EnergyPercentButton.X ", " Coordinates.EnergyPercentButton.Y "}"  ; Shift+LeftClick
+    SendEvent "+{Click " PosToPixel(Coordinates.EnergyPercentButton).X ", " PosToPixel(Coordinates.EnergyPercentButton).Y "}"  ; Shift+LeftClick
     SendEvent "{Click}"
 
     MoveMouseCoordinates(Position)
@@ -460,10 +393,14 @@ DistributeMagic(Position, Percent) {
     MoveMouseCoordinates(Coordinates.InputField)
     Send Percent
 
-    SendEvent "+{Click " Coordinates.MagicPercentButton.X ", " Coordinates.MagicPercentButton.Y "}"  ; Shift+LeftClick
+    SendEvent "+{Click " PosToPixel(Coordinates.MagicPercentButton).X ", " PosToPixel(Coordinates.MagicPercentButton).Y "}"  ; Shift+LeftClick
     SendEvent "{Click}"
 
     MoveMouseCoordinates(Position)
+}
+
+FindHighestZone() {
+
 }
 
 GoToFurthestAdventureZone() {
@@ -479,6 +416,9 @@ GoToFurthestAdventureZoneLowLevel() {
 GoToAdventureZone(Zone) {
     ; Go to feature
     MoveMouseCoordinates(Coordinates.Adventure)
+
+    ; Hide select in case it is open
+    MoveMouseCoordinates(Coordinates.AdventureSelectBoxHide)
     
     ; Click select
     MoveMouseCoordinates(Coordinates.AdventureSelectBox)
