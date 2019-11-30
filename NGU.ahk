@@ -2,7 +2,7 @@
 
 CoordMode "Mouse", "Window"
 CoordMode "Pixel", "Window"
-SetMouseDelay 35
+SetMouseDelay 33
 
 #SingleInstance force
 
@@ -155,6 +155,8 @@ BasicChallenge() {
 
             ; Reclaim excess from Wandoos
             if (HasWandoos) {
+                MoveMouseCoordinates(Coordinates.Wandoos)
+
                 DistributeEnergyCap(Coordinates.WandoosEnergyDecrease)
                 DistributeMagicCap(Coordinates.WandoosMagicDecrease)
             }
