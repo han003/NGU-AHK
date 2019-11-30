@@ -51,7 +51,9 @@ Debug("Mouse at: " Pos.X "x" Pos.Y)
 return
 
 F2::
-FeatureUnlocked(Coordinates.BloodMagic)
+MoveMouseCoordinates(Coordinates.GoldDiggers)
+MoveMouseCoordinates(Coordinates.GoldDiggersClearActive)
+MoveMouseCoordinates(Coordinates.GoldDiggersClearActive)
 return
 
 F3::
@@ -93,14 +95,17 @@ GetFightBossColorString() {
 }
 
 BasicChallenge() {
-    ; Reclaim
+    ShouldReclaim := true
+
+    ; Reclaim func
     DoReclaim() {
         if (ShouldReclaim) {
+            Debug("Reclaim")
             Send "rt"
             ShouldReclaim := false
         }
     }
-    SetTimer "DoReclaim", 100
+    SetTimer "DoReclaim", 10
 
     ;; Start actual important stuff
     Loop {
@@ -108,11 +113,20 @@ BasicChallenge() {
         CurrentBoss := Bosses[1]
         StartTime := A_TickCount
 
+        ; Grow my beard
         if (FeatureUnlocked(Coordinates.BeardsOfPower)) {
             ActivateBeard(Coordinates.BeardsOfPowerTheFuManchu)
         }
 
         While (A_TickCount - StartTime < RunTimeMin * 60 * 1000) {
+            ; Use gold digger if possible
+            if (FeatureUnlocked(Coordinates.GoldDiggers)) {
+                MoveMouseCoordinates(Coordinates.GoldDiggers)
+                MoveMouseCoordinates(Coordinates.GoldDiggersClearActive)
+                MoveMouseCoordinates(Coordinates.GoldDiggersPage1)
+                MoveMouseCoordinates(Coordinates.GoldDiggersBottomLeftCap)
+            }
+
             ; Increase boss #
             FightUntilDead()
 
@@ -127,6 +141,12 @@ BasicChallenge() {
                 MoveMouseCoordinates(Coordinates.RebirthChallengesBasic)
                 MoveMouseCoordinates(Coordinates.RebirthYes)
                 BasicChallenge()
+            }
+
+            ; Release gold diggers to save money
+            if (FeatureUnlocked(Coordinates.GoldDiggers)) {
+                MoveMouseCoordinates(Coordinates.GoldDiggers)
+                MoveMouseCoordinates(Coordinates.GoldDiggersClearActive)
             }
           
             ; Go to zone
@@ -144,7 +164,7 @@ BasicChallenge() {
 
             ; Defaults with all unlocked
             ; Energy
-            AugmentIncrease := CurrentBoss.Nr >= 37 ? 10 : 15
+            AugmentIncrease := CurrentBoss.Nr > 37 ? 10 : 15
             AugmentHelpIncrease := 5
             TimeMachineSpeed := 35
             WandoosEnergy := 50
