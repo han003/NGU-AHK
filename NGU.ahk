@@ -93,19 +93,40 @@ GetFightBossColorString() {
 }
 
 BasicChallenge() {
-    ShouldReclaim := true
+    Fight(CurrentBoss) {
+        ; Use gold digger if possible
+        if (FeatureUnlocked(Coordinates.GoldDiggers)) {
+            MoveMouseCoordinates(Coordinates.GoldDiggers)
+            MoveMouseCoordinates(Coordinates.GoldDiggersClearActive)
+            MoveMouseCoordinates(Coordinates.GoldDiggersPage1)
+            MoveMouseCoordinates(Coordinates.GoldDiggersBottomLeftCap)
+        }
 
-    ; Reclaim func
-    DoReclaim() {
-        if (ShouldReclaim) {
-            Debug("Reclaim")
-            Send "rt"
-            ShouldReclaim := false
+        ; Increase boss #
+        FightUntilDead()
+
+        ; Check boss
+        OldBoss := CurrentBoss
+        CurrentBoss := GetCurrentBoss(CurrentBoss)
+
+        ; If done or not
+        if (CurrentBoss.Nr > 58) {
+            ; Use the money
+            MoneyPitFeedAndSpin()
+
+            MoveMouseCoordinates(Coordinates.SideMenuRebirth)
+            MoveMouseCoordinates(Coordinates.RebirthChallenges)
+            MoveMouseCoordinates(Coordinates.RebirthChallengesBasic)
+            MoveMouseCoordinates(Coordinates.RebirthYes)
+            BasicChallenge()
+        }
+
+        return {
+            OldBoss: OldBoss,
+            CurrentBoss: CurrentBoss
         }
     }
-    SetTimer "DoReclaim", 10
-
-    ;; Start actual important stuff
+    
     Loop {
         RunTimeMin := 15
         CurrentBoss := Bosses[1]
@@ -117,29 +138,9 @@ BasicChallenge() {
         }
 
         While (A_TickCount - StartTime < RunTimeMin * 60 * 1000) {
-            ; Use gold digger if possible
-            if (FeatureUnlocked(Coordinates.GoldDiggers)) {
-                MoveMouseCoordinates(Coordinates.GoldDiggers)
-                MoveMouseCoordinates(Coordinates.GoldDiggersClearActive)
-                MoveMouseCoordinates(Coordinates.GoldDiggersPage1)
-                MoveMouseCoordinates(Coordinates.GoldDiggersBottomLeftCap)
-            }
-
-            ; Increase boss #
-            FightUntilDead()
-
-            ; Check boss
-            OldBoss := CurrentBoss
-            CurrentBoss := GetCurrentBoss(CurrentBoss)
-
-            ; If done or not
-            if (CurrentBoss.Nr > 58) {
-                MoveMouseCoordinates(Coordinates.SideMenuRebirth)
-                MoveMouseCoordinates(Coordinates.RebirthChallenges)
-                MoveMouseCoordinates(Coordinates.RebirthChallengesBasic)
-                MoveMouseCoordinates(Coordinates.RebirthYes)
-                BasicChallenge()
-            }
+            BossObj := Fight()
+            CurrentBoss := BossObj.CurrentBoss
+            OldBoss := BossObj.OldBoss
 
             ; Release gold diggers to save money
             if (FeatureUnlocked(Coordinates.GoldDiggers)) {
@@ -152,13 +153,17 @@ BasicChallenge() {
                 GoToFurthestAdventureZoneLowLevel()
             }
 
-            ; Reclaim
-            ShouldReclaim := true
+            ; Reclaim excess from Wandoos
+            if (HasWandoos) {
+                DistributeEnergyCap(Coordinates.WandoosEnergyDecrease)
+                DistributeMagicCap(Coordinates.WandoosMagicDecrease)
+            }
 
             ; Decide distributions
             HasAugments := FeatureUnlocked(Coordinates.Augmentation)
             HasTimeMachine := FeatureUnlocked(Coordinates.TimeMachine)
             HasBloodMagic := FeatureUnlocked(Coordinates.TimeMachine)
+            HasWandoos := FeatureUnlocked(Coordinates.Wandoos)
 
             ; Defaults with all unlocked
             ; Energy
@@ -217,6 +222,12 @@ BasicChallenge() {
             if (HasAugments) {
                 MoveMouseCoordinates(Coordinates.Augmentation)
 
+                ; Reclaim
+                DistributeEnergyCap(Coordinates.AugmentationSafetyScissorsDecrease)
+                MoveMouseCoordinates(Coordinates.AugmentationDangerScissorsDecrease)
+                MoveMouseCoordinates(Coordinates.AugmentationMilkInfusionDecrease)
+
+                ; Assign
                 if (CurrentBoss.Nr > 37) {
                     DistributeEnergyIdlePercent(Coordinates.AugmentationSafetyScissorsIncrease, AugmentIncrease)
                     DistributeEnergyIdlePercent(Coordinates.AugmentationDangerScissorsIncrease, AugmentHelpIncrease)
@@ -229,6 +240,11 @@ BasicChallenge() {
             if (HasTimeMachine) {
                 MoveMouseCoordinates(Coordinates.TimeMachine)
 
+                ; Reclaim
+                DistributeEnergyCap(Coordinates.TimeMachineSpeedReduce)
+                MoveMouseCoordinates(Coordinates.TimeMachineMultiplierReduce)
+
+                ; Assign
                 DistributeEnergyIdlePercent(Coordinates.TimeMachineSpeedIncrease, TimeMachineSpeed)
                 DistributeMagicIdlePercent(Coordinates.TimeMachineMultiplierIncrease, TimeMachineMultiplier)
             }
@@ -237,19 +253,38 @@ BasicChallenge() {
             if (HasBloodMagic) {
                 MoveMouseCoordinates(Coordinates.BloodMagic)
 
+                ; Reclaim
+                DistributeMagicCap(Coordinates.BloodMagicFiftyPapercutsDecrease)
+
+                ; Assign
                 DistributeMagicIdlePercent(Coordinates.BloodMagicFiftyPapercutsIncrease, BloodMagic)
             }
 
             ; Wandoos
-            MoveMouseCoordinates(Coordinates.Wandoos)
-            
-            FinalDistributeStart := A_TickCount
-            While (A_TickCount - FinalDistributeStart < 60000) {
-                DistributeEnergyCap(Coordinates.WandoosEnergyIncrease)
-                DistributeMagicCap(Coordinates.WandoosMagicIncrease)
-                Sleep 5000
+            ; Use excess energy/magic here
+            ; Reclaimed at start
+            if (HasWandoos) {
+                MoveMouseCoordinates(Coordinates.Wandoos)
+                
+                FinalDistributeStart := A_TickCount
+                While (A_TickCount - FinalDistributeStart < 60000) {
+                    DistributeEnergyCap(Coordinates.WandoosEnergyIncrease)
+                    DistributeMagicCap(Coordinates.WandoosMagicIncrease)
+                    Sleep 5000
+                }
             }
         }
+
+        ; Use gold digger if possible
+        if (FeatureUnlocked(Coordinates.GoldDiggers)) {
+            MoveMouseCoordinates(Coordinates.GoldDiggers)
+            MoveMouseCoordinates(Coordinates.GoldDiggersClearActive)
+            MoveMouseCoordinates(Coordinates.GoldDiggersPage1)
+            MoveMouseCoordinates(Coordinates.GoldDiggersBottomLeftCap)
+        }
+
+        ; Run is over, do one more final fight
+        Fight()
 
         ; Use the money
         MoneyPitFeedAndSpin()
