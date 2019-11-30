@@ -4,6 +4,10 @@ global Coordinates := {}
 Coordinates.InputField := {X: 0.45178849144634525, Y: 0.072376357056694818}
 Coordinates.EnergyPercentButton := {X: 0.79393468118195953, Y: 0.066344993968636912}
 Coordinates.MagicPercentButton := {X: 0.79937791601866248, Y: 0.10253317249698432}
+Coordinates.EnergyIdlePercentButton := {X: 0.96500777604976673, Y: 0.066344993968636912}
+Coordinates.MagicIdlePercentButton := {X: 0.96111975116640747, Y: 0.10494571773220748}
+Coordinates.EnergyCapButton := {X: 0.70917573872472783, Y: 0.071170084439083237}
+Coordinates.MagicCapButton := {X: 0.69984447900466562, Y: 0.097708082026537996}
 
 ; SIDE MENU
 Coordinates.SideMenuRebirth := {X: 0.16096423017107309, Y: 0.7056694813027744}

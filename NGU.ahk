@@ -2,7 +2,7 @@
 
 CoordMode "Mouse", "Window"
 CoordMode "Pixel", "Window"
-SetMouseDelay 40
+SetMouseDelay 35
 
 #SingleInstance force
 
@@ -218,10 +218,10 @@ BasicChallenge() {
                 MoveMouseCoordinates(Coordinates.Augmentation)
 
                 if (CurrentBoss.Nr > 37) {
-                    DistributeEnergy(Coordinates.AugmentationSafetyScissorsIncrease, AugmentIncrease)
-                    DistributeEnergy(Coordinates.AugmentationDangerScissorsIncrease, AugmentHelpIncrease)
+                    DistributeEnergyIdlePercent(Coordinates.AugmentationSafetyScissorsIncrease, AugmentIncrease)
+                    DistributeEnergyIdlePercent(Coordinates.AugmentationDangerScissorsIncrease, AugmentHelpIncrease)
                 } else {
-                    DistributeEnergy(Coordinates.AugmentationMilkInfusionIncrease, AugmentIncrease + AugmentHelpIncrease)
+                    DistributeEnergyIdlePercent(Coordinates.AugmentationMilkInfusionIncrease, AugmentIncrease + AugmentHelpIncrease)
                 }
             }
 
@@ -229,15 +229,15 @@ BasicChallenge() {
             if (HasTimeMachine) {
                 MoveMouseCoordinates(Coordinates.TimeMachine)
 
-                DistributeEnergy(Coordinates.TimeMachineSpeedIncrease, TimeMachineSpeed)
-                DistributeMagic(Coordinates.TimeMachineMultiplierIncrease, TimeMachineMultiplier)
+                DistributeEnergyIdlePercent(Coordinates.TimeMachineSpeedIncrease, TimeMachineSpeed)
+                DistributeMagicIdlePercent(Coordinates.TimeMachineMultiplierIncrease, TimeMachineMultiplier)
             }
 
             ; Blood magic if possible
             if (HasBloodMagic) {
                 MoveMouseCoordinates(Coordinates.BloodMagic)
 
-                DistributeMagic(Coordinates.BloodMagicFiftyPapercutsIncrease, BloodMagic)
+                DistributeMagicIdlePercent(Coordinates.BloodMagicFiftyPapercutsIncrease, BloodMagic)
             }
 
             ; Wandoos
@@ -245,8 +245,8 @@ BasicChallenge() {
             
             FinalDistributeStart := A_TickCount
             While (A_TickCount - FinalDistributeStart < 60000) {
-                DistributeEnergy(Coordinates.WandoosEnergyIncrease, WandoosEnergy)
-                DistributeMagic(Coordinates.WandoosMagicIncrease, WandoosMagic)
+                DistributeEnergyCap(Coordinates.WandoosEnergyIncrease)
+                DistributeMagicCap(Coordinates.WandoosMagicIncrease)
                 Sleep 5000
             }
         }
@@ -369,7 +369,34 @@ CheckMoneyPit() {
     }
 }
 
-DistributeMagic(Position, Percent) {
+DistributeEnergyPercent(Position, Percent) {
+    MoveMouseCoordinates(Coordinates.InputField)
+    Send Percent
+
+    SendEvent "+{Click " PosToPixel(Coordinates.EnergyPercentButton).X ", " PosToPixel(Coordinates.EnergyPercentButton).Y "}"  ; Shift+LeftClick
+    Sleep 200
+    SendEvent "{Click}"
+
+    MoveMouseCoordinates(Position)
+}
+
+DistributeEnergyIdlePercent(Position, Percent) {
+    MoveMouseCoordinates(Coordinates.InputField)
+    Send Percent
+
+    SendEvent "+{Click " PosToPixel(Coordinates.EnergyIdlePercentButton).X ", " PosToPixel(Coordinates.EnergyIdlePercentButton).Y "}"  ; Shift+LeftClick
+    Sleep 200
+    SendEvent "{Click}"
+
+    MoveMouseCoordinates(Position)
+}
+
+DistributeEnergyCap(Position) {
+    MoveMouseCoordinates(Coordinates.EnergyCapButton)
+    MoveMouseCoordinates(Position)
+}
+
+DistributeMagicPercent(Position, Percent) {
     MoveMouseCoordinates(Coordinates.InputField)
     Send Percent
 
@@ -380,14 +407,19 @@ DistributeMagic(Position, Percent) {
     MoveMouseCoordinates(Position)
 }
 
-DistributeEnergy(Position, Percent) {
+DistributeMagicIdlePercent(Position, Percent) {
     MoveMouseCoordinates(Coordinates.InputField)
     Send Percent
 
-    SendEvent "+{Click " PosToPixel(Coordinates.EnergyPercentButton).X ", " PosToPixel(Coordinates.EnergyPercentButton).Y "}"  ; Shift+LeftClick
+    SendEvent "+{Click " PosToPixel(Coordinates.MagicIdlePercentButton).X ", " PosToPixel(Coordinates.MagicIdlePercentButton).Y "}"  ; Shift+LeftClick
     Sleep 200
     SendEvent "{Click}"
 
+    MoveMouseCoordinates(Position)
+}
+
+DistributeMagicCap(Position) {
+    MoveMouseCoordinates(Coordinates.MagicCapButton)
     MoveMouseCoordinates(Position)
 }
 
