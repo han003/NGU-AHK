@@ -164,25 +164,25 @@ BasicChallenge() {
             ; Energy
             AugmentIncrease := CurrentBoss.Nr > 37 ? 10 : 15
             AugmentHelpIncrease := 5
-            TimeMachineSpeed := 35
-            WandoosEnergy := 50
+            TimeMachineSpeed := 45
+            WandoosEnergy := 40
 
             ; Magic
-            TimeMachineMultiplier := 35
-            BloodMagic := 15
-            WandoosMagic := 50
+            TimeMachineMultiplier := 40
+            BloodMagic := 20
+            WandoosMagic := 40
 
             if (!HasBloodMagic) {
                 ; Defaults without blood magic
                 ; Energy
                 AugmentIncrease := CurrentBoss.Nr > 37 ? 10 : 15
                 AugmentHelpIncrease := 5
-                TimeMachineSpeed := 35
-                WandoosEnergy := 50
+                TimeMachineSpeed := 45
+                WandoosEnergy := 40
 
                 ; Magic
-                TimeMachineMultiplier := 40
-                WandoosMagic := 60
+                TimeMachineMultiplier := 60
+                WandoosMagic := 40
 
                 if (!HasTimeMachine) {
                     ; Defaults without time machine
