@@ -138,7 +138,7 @@ BasicChallenge() {
         }
 
         While (A_TickCount - StartTime < RunTimeMin * 60 * 1000) {
-            BossObj := Fight()
+            BossObj := Fight(CurrentBoss)
             CurrentBoss := BossObj.CurrentBoss
             OldBoss := BossObj.OldBoss
 
@@ -284,7 +284,7 @@ BasicChallenge() {
         }
 
         ; Run is over, do one more final fight
-        Fight()
+        Fight(CurrentBoss)
 
         ; Use the money
         MoneyPitFeedAndSpin()
