@@ -103,10 +103,10 @@ Coordinates.AugmentationSafetyScissorsDecrease := {X: 0.59642301710730949, Y: 0.
 Coordinates.AugmentationDangerScissorsIncrease := {X: 0.5528771384136858, Y: 0.50422195416164051}
 Coordinates.AugmentationDangerScissorsDecrease := {X: 0.59409020217729391, Y: 0.49577804583835949}
 
-Coordinates.AugmentationMilkInfusionIncrease := {X: 753, Y: 453}
-Coordinates.AugmentationMilkInfusionDecrease := {X: 800, Y: 456}
-Coordinates.AugmentationDrinkingTheMilkTooIncrease := {X: 741, Y: 495}
-Coordinates.AugmentationDrinkingTheMilkTooDecrease := {X: 807, Y: 496}
+Coordinates.AugmentationMilkInfusionIncrease := {X: 0.55443234836702959, Y: 0.56212303980699641}
+Coordinates.AugmentationMilkInfusionDecrease := {X: 0.58786936236391918, Y: 0.55971049457177324}
+Coordinates.AugmentationDrinkingTheMilkTooIncrease := {X: 0.56298600311041991, Y: 0.61158021712907118}
+Coordinates.AugmentationDrinkingTheMilkTooDecrease := {X: 0.59097978227060655, Y: 0.61158021712907118}
 
 Coordinates.AugmentationCannonImplantIncrease := {X: 754, Y: 543}
 Coordinates.AugmentationCannonImplantDecrease := {X: 804, Y: 548}
