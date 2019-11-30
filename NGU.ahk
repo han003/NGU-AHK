@@ -223,7 +223,7 @@ BasicChallenge() {
                     DistributeEnergy(Coordinates.AugmentationSafetyScissorsIncrease, AugmentIncrease)
                     DistributeEnergy(Coordinates.AugmentationDangerScissorsIncrease, AugmentHelpIncrease)
                 } else {
-                    DistributeEnergy(Coordinates.AugmentationMilkInfusion, AugmentIncrease + AugmentHelpIncrease)
+                    DistributeEnergy(Coordinates.AugmentationMilkInfusionIncrease, AugmentIncrease + AugmentHelpIncrease)
                 }
             }
 
