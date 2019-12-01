@@ -422,8 +422,8 @@ DistributeEnergyPercent(Position, Percent) {
     Send Percent
 
     SendEvent "+{Click " PosToPixel(Coordinates.EnergyPercentButton).X ", " PosToPixel(Coordinates.EnergyPercentButton).Y "}"  ; Shift+LeftClick
-    Sleep 200
-    SendEvent "{Click}"
+    Sleep 250
+    MoveMouseCoordinates(Coordinates.EnergyPercentButton)
 
     MoveMouseCoordinates(Position)
 }
@@ -433,8 +433,8 @@ DistributeEnergyIdlePercent(Position, Percent) {
     Send Percent
 
     SendEvent "+{Click " PosToPixel(Coordinates.EnergyIdlePercentButton).X ", " PosToPixel(Coordinates.EnergyIdlePercentButton).Y "}"  ; Shift+LeftClick
-    Sleep 200
-    SendEvent "{Click}"
+    Sleep 250
+    MoveMouseCoordinates(Coordinates.EnergyIdlePercentButton)
 
     MoveMouseCoordinates(Position)
 }
@@ -450,7 +450,7 @@ DistributeMagicPercent(Position, Percent) {
 
     SendEvent "+{Click " PosToPixel(Coordinates.MagicPercentButton).X ", " PosToPixel(Coordinates.MagicPercentButton).Y "}"  ; Shift+LeftClick
     Sleep 250
-    Click
+    MoveMouseCoordinates(Coordinates.MagicPercentButton)
 
     MoveMouseCoordinates(Position)
 }
@@ -461,7 +461,7 @@ DistributeMagicIdlePercent(Position, Percent) {
 
     SendEvent "+{Click " PosToPixel(Coordinates.MagicIdlePercentButton).X ", " PosToPixel(Coordinates.MagicIdlePercentButton).Y "}"  ; Shift+LeftClick
     Sleep 250
-    Click
+    MoveMouseCoordinates(Coordinates.MagicIdlePercentButton)
 
     MoveMouseCoordinates(Position)
 }
