@@ -146,7 +146,7 @@ BasicChallenge() {
 
         ; Grow my beard
         if (FeatureUnlocked(Coordinates.BeardsOfPower)) {
-            ActivateBeard(Coordinates.BeardsOfPowerTheReverseHitler)
+            ActivateBeard(Coordinates.BeardsOfPowerTheFuManchu)
         }
 
         While (A_TickCount - StartTime < RunTimeMin * 60 * 1000) {
