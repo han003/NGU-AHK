@@ -93,14 +93,26 @@ GetFightBossColorString() {
 }
 
 BasicChallenge() {
-    Fight(CurrentBoss) {
-        ; Use gold digger if possible
+    UseGoldDigger() {
         if (FeatureUnlocked(Coordinates.GoldDiggers)) {
             MoveMouseCoordinates(Coordinates.GoldDiggers)
             MoveMouseCoordinates(Coordinates.GoldDiggersClearActive)
             MoveMouseCoordinates(Coordinates.GoldDiggersPage1)
-            MoveMouseCoordinates(Coordinates.GoldDiggersBottomLeftCap)
+            MoveMouseCoordinates(Coordinates.GoldDiggersBottomLeftInput)
+            Send 1
+            MoveMouseCoordinates(Coordinates.GoldDiggersBottomLeftActivate)
+            MoveMouseCoordinates(Coordinates.GoldDiggersBottomLeftPlus)
+
+            Loop 5 {
+                Click
+                Sleep 50
+            }
         }
+    }
+
+    Fight(CurrentBoss) {
+        ; Use gold digger if possible
+        UseGoldDigger()
 
         ; Increase boss #
         FightUntilDead()
@@ -228,11 +240,14 @@ BasicChallenge() {
                 DistributeEnergyCap(Coordinates.AugmentationSafetyScissorsDecrease)
                 MoveMouseCoordinates(Coordinates.AugmentationDangerScissorsDecrease)
                 MoveMouseCoordinates(Coordinates.AugmentationMilkInfusionDecrease)
+                MoveMouseCoordinates(Coordinates.AugmentationEnergyBusterDecrease)
 
                 ; Assign
                 if (CurrentBoss.Nr > 37) {
                     DistributeEnergyIdlePercent(Coordinates.AugmentationSafetyScissorsIncrease, AugmentIncrease)
                     DistributeEnergyIdlePercent(Coordinates.AugmentationDangerScissorsIncrease, AugmentHelpIncrease)
+                } else if (CurrentBoss.Nr > 30)  {
+                    DistributeEnergyIdlePercent(Coordinates.AugmentationEnergyBusterIncrease, AugmentIncrease + AugmentHelpIncrease)
                 } else {
                     DistributeEnergyIdlePercent(Coordinates.AugmentationMilkInfusionIncrease, AugmentIncrease + AugmentHelpIncrease)
                 }
@@ -278,12 +293,7 @@ BasicChallenge() {
         }
 
         ; Use gold digger if possible
-        if (FeatureUnlocked(Coordinates.GoldDiggers)) {
-            MoveMouseCoordinates(Coordinates.GoldDiggers)
-            MoveMouseCoordinates(Coordinates.GoldDiggersClearActive)
-            MoveMouseCoordinates(Coordinates.GoldDiggersPage1)
-            MoveMouseCoordinates(Coordinates.GoldDiggersBottomLeftCap)
-        }
+        UseGoldDigger()
 
         ; Run is over, do one more final fight
         Fight(CurrentBoss)

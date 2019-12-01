@@ -1,4 +1,5 @@
 global Bosses := Array()
+
 Bosses.push({
     Nr: 1,
     Name: "A Small Piece Of Fluff",
@@ -164,7 +165,7 @@ Bosses.push({
 
 Bosses.push({
     Nr: 28,
-    Name: "",
+    Name: "Floppy Mattress",
     ColorString: "0x817B540x4A6C720x496C720x496C720x2D2D2D"
 })
 
@@ -176,7 +177,7 @@ Bosses.push({
 
 Bosses.push({
     Nr: 30,
-    Name: "",
+    Name: "T-800",
     ColorString: "0x9285540x2D2D2D0x565B5A0x8089870x7C8784"
 })
 
@@ -218,7 +219,7 @@ Bosses.push({
 
 Bosses.push({
     Nr: 37,
-    Name: "",
+    Name: "A Fifth Giant Mole",
     ColorString: "0xA791560x496C720x8CC4680x496C720x354F54"
 })
 
