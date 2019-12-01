@@ -2,7 +2,7 @@
 
 CoordMode "Mouse", "Window"
 CoordMode "Pixel", "Window"
-SetMouseDelay 33
+SetMouseDelay 32
 
 #SingleInstance force
 
@@ -16,7 +16,7 @@ global Path := "C:\Users\joarj\Desktop\NGU"
 
 global DebugText := ""
 global DebugGui := GuiCreate()
-global DebugEdit := DebugGui.Add("Edit", "w450 vDebugEdit r60 ReadOnly")
+global DebugEdit := DebugGui.Add("Edit", "w400 vDebugEdit r55 ReadOnly")
 DebugGui.Title := "NGU Debugger"
 DebugGui.Show()
 
@@ -94,7 +94,7 @@ GetFightBossColorString() {
 
 BasicChallenge() {
     UseGoldDigger() {
-        if (FeatureUnlocked(Coordinates.GoldDiggers)) {
+        if (FeatureUnlocked(Coordinates.GoldDiggers) && FeatureUnlocked(Coordinates.TimeMachine)) {
             MoveMouseCoordinates(Coordinates.GoldDiggers)
             MoveMouseCoordinates(Coordinates.GoldDiggersClearActive)
             MoveMouseCoordinates(Coordinates.GoldDiggersPage1)
@@ -146,7 +146,7 @@ BasicChallenge() {
 
         ; Grow my beard
         if (FeatureUnlocked(Coordinates.BeardsOfPower)) {
-            ActivateBeard(Coordinates.BeardsOfPowerTheFuManchu)
+            ActivateBeard(Coordinates.BeardsOfPowerTheReverseHitler)
         }
 
         While (A_TickCount - StartTime < RunTimeMin * 60 * 1000) {
@@ -155,7 +155,7 @@ BasicChallenge() {
             OldBoss := BossObj.OldBoss
 
             ; Release gold diggers to save money
-            if (FeatureUnlocked(Coordinates.GoldDiggers)) {
+            if (FeatureUnlocked(Coordinates.GoldDiggers) && FeatureUnlocked(Coordinates.TimeMachine)) {
                 MoveMouseCoordinates(Coordinates.GoldDiggers)
                 MoveMouseCoordinates(Coordinates.GoldDiggersClearActive)
             }
@@ -181,14 +181,14 @@ BasicChallenge() {
 
             ; Defaults with all unlocked
             ; Energy
-            AugmentIncrease := CurrentBoss.Nr > 37 ? 10 : 15
-            AugmentHelpIncrease := 5
+            AugmentIncrease := CurrentBoss.Nr > 37 ? 11 : 15
+            AugmentHelpIncrease := 4
             TimeMachineSpeed := 45
             WandoosEnergy := 40
 
             ; Magic
-            TimeMachineMultiplier := 40
-            BloodMagic := 20
+            TimeMachineMultiplier := 42
+            BloodMagic := 18
             WandoosMagic := 40
 
             if (!HasBloodMagic) {
@@ -282,11 +282,12 @@ BasicChallenge() {
             ; Reclaimed at start
             if (HasWandoos) {
                 MoveMouseCoordinates(Coordinates.Wandoos)
+                MoveMouseCoordinates(Coordinates.EnergyCapButton)
                 
                 FinalDistributeStart := A_TickCount
                 While (A_TickCount - FinalDistributeStart < 60000) {
-                    DistributeEnergyCap(Coordinates.WandoosEnergyIncrease)
-                    DistributeMagicCap(Coordinates.WandoosMagicIncrease)
+                    MoveMouseCoordinates(Coordinates.WandoosEnergyIncrease)
+                    MoveMouseCoordinates(Coordinates.WandoosMagicIncrease)
                     Sleep 5000
                 }
             }
@@ -448,8 +449,8 @@ DistributeMagicPercent(Position, Percent) {
     Send Percent
 
     SendEvent "+{Click " PosToPixel(Coordinates.MagicPercentButton).X ", " PosToPixel(Coordinates.MagicPercentButton).Y "}"  ; Shift+LeftClick
-    Sleep 200
-    SendEvent "{Click}"
+    Sleep 250
+    Click
 
     MoveMouseCoordinates(Position)
 }
@@ -459,8 +460,8 @@ DistributeMagicIdlePercent(Position, Percent) {
     Send Percent
 
     SendEvent "+{Click " PosToPixel(Coordinates.MagicIdlePercentButton).X ", " PosToPixel(Coordinates.MagicIdlePercentButton).Y "}"  ; Shift+LeftClick
-    Sleep 200
-    SendEvent "{Click}"
+    Sleep 250
+    Click
 
     MoveMouseCoordinates(Position)
 }
