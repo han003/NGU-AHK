@@ -159,6 +159,8 @@ OneHundredLevelChallenge(TargetBoss := 58) {
                         DistributeEnergyIdlePercent(Coordinates.TimeMachineSpeedIncrease, 25)
                         DistributeMagicIdlePercent(Coordinates.TimeMachineMultiplierIncrease, 100)
                     }
+
+                    Sleep 5000
                 }
             }
 
@@ -181,6 +183,11 @@ OneHundredLevelChallenge(TargetBoss := 58) {
 
         ; Blood magic last if possible
         if (HasBloodMagic) {
+            ; Get back magic
+            MoveMouseCoordinates(Coordinates.TimeMachine)
+            DistributeMagicCap(Coordinates.TimeMachineMultiplierReduce)
+
+            ; Go blood
             MoveMouseCoordinates(Coordinates.BloodMagic)
 
             ; Assign
