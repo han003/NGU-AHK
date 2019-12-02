@@ -100,8 +100,10 @@ Coordinates.FightBossCheckPixels := [
 ; TIME MACHINE
 Coordinates.TimeMachineSpeedIncrease := {X: 0.55676516329704506, Y: 0.41495778045838361}
 Coordinates.TimeMachineSpeedReduce := {X: 0.58164852255054433, Y: 0.41133896260554886}
+Coordinates.TimeMachineSpeedTarget := {X: 0.6702954898911353, Y: 0.40772014475271412}
 Coordinates.TimeMachineMultiplierIncrease := {X: 0.56376360808709181, Y: 0.56936067551266589}
 Coordinates.TimeMachineMultiplierReduce := {X: 0.59486780715396581, Y: 0.57177322074788905}
+Coordinates.TimeMachineMultiplierTarget := {X: 0.67185069984447898, Y: 0.56212303980699641}
 
 ; ADVENTURE
 Coordinates.AdventureSelectBoxHide := {X: 0.3297045101088647, Y: 0.39686369119420989}
@@ -111,28 +113,38 @@ Coordinates.AdventureSelectMenuFirstItem := {X: 0.82426127527216175, Y: 0.413751
 ; AUGMENTATION
 Coordinates.AugmentationSafetyScissorsIncrease := {X: 0.56065318818040433, Y: 0.45476477683956573}
 Coordinates.AugmentationSafetyScissorsDecrease := {X: 0.59642301710730949, Y: 0.45355850422195415}
+Coordinates.AugmentationSafetyScissorsTarget := {X: 0.65785381026438572, Y: 0.45476477683956573}
 Coordinates.AugmentationDangerScissorsIncrease := {X: 0.5528771384136858, Y: 0.50422195416164051}
 Coordinates.AugmentationDangerScissorsDecrease := {X: 0.59409020217729391, Y: 0.49577804583835949}
+Coordinates.AugmentationDangerScissorsTarget := {X: 0.6594090202177294, Y: 0.50422195416164051}
 
 Coordinates.AugmentationMilkInfusionIncrease := {X: 0.55443234836702959, Y: 0.56212303980699641}
 Coordinates.AugmentationMilkInfusionDecrease := {X: 0.58786936236391918, Y: 0.55971049457177324}
+Coordinates.AugmentationMilkInfusionTarget := {X: 0.66640746500777603, Y: 0.55488540410132692}
 Coordinates.AugmentationDrinkingTheMilkTooIncrease := {X: 0.56298600311041991, Y: 0.61158021712907118}
 Coordinates.AugmentationDrinkingTheMilkTooDecrease := {X: 0.59097978227060655, Y: 0.61158021712907118}
+Coordinates.AugmentationDrinkingTheMilkTooTarget := {X: 0.66562986003110425, Y: 0.60916767189384802}
 
 Coordinates.AugmentationCannonImplantIncrease := {X: 0.55676516329704506, Y: 0.66465621230398075}
 Coordinates.AugmentationCannonImplantDecrease := {X: 0.5956454121306376, Y: 0.66344993968636912}
+Coordinates.AugmentationCannonImplantTarget := {X: 0.64152410575427687, Y: 0.65862484921592279}
 Coordinates.AugmentationMissileLauncherIncrease := {X: 0.55598755832037328, Y: 0.71170084439083237}
 Coordinates.AugmentationMissileLauncherDecrease := {X: 0.59175738724727833, Y: 0.7056694813027744}
+Coordinates.AugmentationMissileLauncherTarget := {X: 0.64307931570762056, Y: 0.71531966224366705}
 
 Coordinates.AugmentationShoulderMountedIncrease := {X: 0.55987558320373254, Y: 0.76839565741857663}
 Coordinates.AugmentationShoulderMountedDecrease := {X: 0.59875583203732508, Y: 0.76115802171290714}
+Coordinates.AugmentationShoulderMountedTarget := {X: 0.6594090202177294, Y: 0.76115802171290714}
 Coordinates.AugmentationActualAmmunitionIncrease := {X: 0.55443234836702959, Y: 0.8178528347406514}
 Coordinates.AugmentationActualAmmunitionDecrease := {X: 0.60031104199066876, Y: 0.81905910735826293}
+Coordinates.AugmentationActualAmmunitionTarget := {X: 0.65085536547433909, Y: 0.81905910735826293}
 
 Coordinates.AugmentationEnergyBusterIncrease := {X: 0.56065318818040433, Y: 0.87334137515078403}
 Coordinates.AugmentationEnergyBusterDecrease := {X: 0.59409020217729391, Y: 0.87696019300361883}
+Coordinates.AugmentationEnergyBusterTarget := {X: 0.65396578538102645, Y: 0.87334137515078403}
 Coordinates.AugmentationChargeShotIncrease := {X: 0.55832037325038886, Y: 0.92038600723763575}
 Coordinates.AugmentationChargeShotIncrease := {X: 0.59642301710730949, Y: 0.91917973462002411}
+Coordinates.AugmentationChargeShotTarget := {X: 0.64385692068429234, Y: 0.92038600723763575}
 
 ; BEARDS
 Coordinates.BeardsOfPowerClear := {X: 0.47744945567651631, Y: 0.40772014475271412}
