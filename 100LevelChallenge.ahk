@@ -107,6 +107,7 @@ OneHundredLevelChallenge(TargetBoss := 58) {
                 MoveMouseCoordinates(Coordinates.AugmentationCannonImplantDecrease)
                 MoveMouseCoordinates(Coordinates.AugmentationShoulderMountedDecrease)
                 MoveMouseCoordinates(Coordinates.AugmentationEnergyBusterDecrease)
+                MoveMouseCoordinates(Coordinates.AugmentationChargeShotDecrease)
                 
                 if (CurrentBoss.Nr == 18) {
                     MoveMouseCoordinates(Coordinates.AugmentationSafetyScissorsTarget)
@@ -131,7 +132,11 @@ OneHundredLevelChallenge(TargetBoss := 58) {
                 } else if (CurrentBoss.Nr > 30) { ;; Time machine
                     MoveMouseCoordinates(Coordinates.AugmentationEnergyBusterTarget)
                     Send 25
-                    DistributeEnergyIdlePercent(Coordinates.AugmentationEnergyBusterIncrease, 75)
+                    DistributeEnergyIdlePercent(Coordinates.AugmentationEnergyBusterIncrease, 65)
+
+                    MoveMouseCoordinates(Coordinates.AugmentationChargeShotTarget)
+                    Send 4
+                    DistributeEnergyIdlePercent(Coordinates.AugmentationChargeShotIncrease, 10)
                 }
             }
 

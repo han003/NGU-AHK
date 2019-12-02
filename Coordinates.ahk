@@ -146,9 +146,9 @@ Coordinates.AugmentationActualAmmunitionTarget := {X: 0.65085536547433909, Y: 0.
 Coordinates.AugmentationEnergyBusterIncrease := {X: 0.56065318818040433, Y: 0.87334137515078403}
 Coordinates.AugmentationEnergyBusterDecrease := {X: 0.59409020217729391, Y: 0.87696019300361883}
 Coordinates.AugmentationEnergyBusterTarget := {X: 0.65396578538102645, Y: 0.87334137515078403}
-Coordinates.AugmentationChargeShotIncrease := {X: 0.55832037325038886, Y: 0.92038600723763575}
-Coordinates.AugmentationChargeShotIncrease := {X: 0.59642301710730949, Y: 0.91917973462002411}
-Coordinates.AugmentationChargeShotTarget := {X: 0.64385692068429234, Y: 0.92038600723763575}
+Coordinates.AugmentationChargeShotIncrease := {X: 0.55520995334370138, Y: 0.91676718938480095}
+Coordinates.AugmentationChargeShotDecrease := {X: 0.59953343701399686, Y: 0.91556091676718943}
+Coordinates.AugmentationChargeShotTarget := {X: 0.66640746500777603, Y: 0.92762364294330524}
 
 ; BEARDS
 Coordinates.BeardsOfPowerClear := {X: 0.47744945567651631, Y: 0.40772014475271412}
