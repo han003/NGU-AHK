@@ -132,14 +132,14 @@ ActivateBeard(BeardPosition) {
 }
 
 FeatureUnlocked(Position) {
-    LockedColors := ["0x97A8B6", "0x7C4B93"]
+    UnLockedColors := ["0xFFFFFF", "0xBA13A7"]
     PCol := PixelGetColor(PosToPixel(Position).X, PosToPixel(Position).Y)
 
-    Unlocked := true
+    Unlocked := false
 
-    for LockCol in LockedColors {
+    for LockCol in UnLockedColors {
         if (PCol == LockCol) {
-            Unlocked := false
+            Unlocked := true
             break
         }
     }

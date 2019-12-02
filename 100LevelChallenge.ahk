@@ -88,7 +88,7 @@ OneHundredLevelChallenge(TargetBoss := 58) {
             ; Decide distributions
             HasAugments := FeatureUnlocked(Coordinates.Augmentation)
             HasTimeMachine := FeatureUnlocked(Coordinates.TimeMachine)
-            HasBloodMagic := FeatureUnlocked(Coordinates.TimeMachine)
+            HasBloodMagic := FeatureUnlocked(Coordinates.TimeMachine) && CurrentBoss.Nr > 37
             HasWandoos := FeatureUnlocked(Coordinates.Wandoos)
 
             Debug("Has Augments: " HasAugments)
@@ -130,7 +130,7 @@ OneHundredLevelChallenge(TargetBoss := 58) {
                     MoveMouseCoordinates(Coordinates.AugmentationCannonImplantIncrease)
                 } else if (CurrentBoss.Nr > 30) { ;; Time machine
                     MoveMouseCoordinates(Coordinates.AugmentationEnergyBusterTarget)
-                    Send 40
+                    Send 30
                     DistributeEnergyIdlePercent(Coordinates.AugmentationEnergyBusterIncrease, 50)
                 }
             }
@@ -145,30 +145,21 @@ OneHundredLevelChallenge(TargetBoss := 58) {
 
                 ; Assign
                 MoveMouseCoordinates(Coordinates.TimeMachineSpeedTarget)
-                Send 30
+                Send 51
 
                 MoveMouseCoordinates(Coordinates.TimeMachineMultiplierTarget)
                 Send 10
 
-                if (HasBloodMagic) {
-                    DistributeEnergyIdlePercent(Coordinates.TimeMachineSpeedIncrease, 50)
-                    DistributeMagicIdlePercent(Coordinates.TimeMachineMultiplierIncrease, 80)
-                } else {
-                    DistributeEnergyIdlePercent(Coordinates.TimeMachineSpeedIncrease, 50)
-                    DistributeMagicIdlePercent(Coordinates.TimeMachineMultiplierIncrease, 100)
+                TimeMachineStart := A_TickCount
+                While (A_TickCount - TimeMachineStart < 60000) {
+                    if (HasBloodMagic) {
+                        DistributeEnergyIdlePercent(Coordinates.TimeMachineSpeedIncrease, 50)
+                        DistributeMagicIdlePercent(Coordinates.TimeMachineMultiplierIncrease, 80)
+                    } else {
+                        DistributeEnergyIdlePercent(Coordinates.TimeMachineSpeedIncrease, 50)
+                        DistributeMagicIdlePercent(Coordinates.TimeMachineMultiplierIncrease, 100)
+                    }
                 }
-                
-            }
-
-            ; Blood magic if possible
-            if (HasBloodMagic) {
-                MoveMouseCoordinates(Coordinates.BloodMagic)
-
-                ; Reclaim
-                DistributeMagicCap(Coordinates.BloodMagicFiftyPapercutsDecrease)
-
-                ; Assign
-                MoveMouseCoordinates(Coordinates.BloodMagicFiftyPapercutsIncrease)
             }
 
             ; Wandoos
@@ -185,9 +176,19 @@ OneHundredLevelChallenge(TargetBoss := 58) {
                     MoveMouseCoordinates(Coordinates.WandoosMagicIncrease)
                     Sleep 5000
                 }
-            } else {
-                Sleep 60000
             }
+        }
+
+        ; Blood magic last if possible
+        if (HasBloodMagic) {
+            MoveMouseCoordinates(Coordinates.BloodMagic)
+
+            ; Assign
+            DistributeMagicIdlePercent(Coordinates.BloodMagicABigAssHickeyIncrease, 50)
+
+            Sleep 10000
+
+            DistributeMagicIdlePercent(Coordinates.BloodMagicFiftyPapercutsIncrease, 50)
         }
 
         ; Use gold digger if possible

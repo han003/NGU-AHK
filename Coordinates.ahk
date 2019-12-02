@@ -75,6 +75,10 @@ Coordinates.BloodMagicFiftyPapercutsIncrease := {X: 0.51010886469673411, Y: 0.44
 Coordinates.BloodMagicFiftyPapercutsDecrease := {X: 0.55443234836702959, Y: 0.45355850422195415}
 Coordinates.BloodMagicFiftyPapercutsCap := {X: 0.5956454121306376, Y: 0.45838359469240048}
 
+Coordinates.BloodMagicABigAssHickeyIncrease := {X: 0.51866251944012443, Y: 0.51145958986730999}
+Coordinates.BloodMagicABigAssHickeyDecrease := {X: 0.55054432348367033, Y: 0.50422195416164051}
+Coordinates.BloodMagicABigAssHickeyCap := {X: 0.59486780715396581, Y: 0.51628468033775632}
+
 ; WANDOOS
 Coordinates.WandoosEnergyIncrease := {X: 0.57620528771384139, Y: 0.43063932448733416}
 Coordinates.WandoosEnergyDecrease := {X: 0.60886469673405907, Y: 0.43667068757539201}
