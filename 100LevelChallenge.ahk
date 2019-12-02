@@ -130,8 +130,8 @@ OneHundredLevelChallenge(TargetBoss := 58) {
                     MoveMouseCoordinates(Coordinates.AugmentationCannonImplantIncrease)
                 } else if (CurrentBoss.Nr > 30) { ;; Time machine
                     MoveMouseCoordinates(Coordinates.AugmentationEnergyBusterTarget)
-                    Send 30
-                    DistributeEnergyIdlePercent(Coordinates.AugmentationEnergyBusterIncrease, 50)
+                    Send 25
+                    DistributeEnergyIdlePercent(Coordinates.AugmentationEnergyBusterIncrease, 75)
                 }
             }
 
@@ -145,7 +145,7 @@ OneHundredLevelChallenge(TargetBoss := 58) {
 
                 ; Assign
                 MoveMouseCoordinates(Coordinates.TimeMachineSpeedTarget)
-                Send 51
+                Send 55
 
                 MoveMouseCoordinates(Coordinates.TimeMachineMultiplierTarget)
                 Send 10
@@ -153,10 +153,10 @@ OneHundredLevelChallenge(TargetBoss := 58) {
                 TimeMachineStart := A_TickCount
                 While (A_TickCount - TimeMachineStart < 60000) {
                     if (HasBloodMagic) {
-                        DistributeEnergyIdlePercent(Coordinates.TimeMachineSpeedIncrease, 50)
-                        DistributeMagicIdlePercent(Coordinates.TimeMachineMultiplierIncrease, 80)
+                        DistributeEnergyIdlePercent(Coordinates.TimeMachineSpeedIncrease, 25)
+                        DistributeMagicIdlePercent(Coordinates.TimeMachineMultiplierIncrease, 70)
                     } else {
-                        DistributeEnergyIdlePercent(Coordinates.TimeMachineSpeedIncrease, 50)
+                        DistributeEnergyIdlePercent(Coordinates.TimeMachineSpeedIncrease, 25)
                         DistributeMagicIdlePercent(Coordinates.TimeMachineMultiplierIncrease, 100)
                     }
                 }
