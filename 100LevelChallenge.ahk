@@ -34,7 +34,7 @@ OneHundredLevelChallenge(TargetBoss := 58) {
 
             MoveMouseCoordinates(Coordinates.SideMenuRebirth)
             MoveMouseCoordinates(Coordinates.RebirthChallenges)
-            MoveMouseCoordinates(Coordinates.RebirthChallengesBasic)
+            MoveMouseCoordinates(Coordinates.RebirthChallenges100Level)
             MoveMouseCoordinates(Coordinates.RebirthYes)
             OneHundredLevelChallenge()
         }
