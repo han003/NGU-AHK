@@ -12,6 +12,7 @@ SetMouseDelay 32
 #Include BasicChallenge.ahk
 #Include 100LevelChallenge.ahk
 #Include NoAugsChallenge.ahk
+#Include TrollChallenge.ahk
 
 global UserHighestZone := 150
 global WindowName := "NGU Idle"
@@ -46,6 +47,10 @@ PosToPixel(Position) {
     }
 }
 
+^X::
+CloseBoxes()
+return
+
 F1::
 MouseGetPos MouseX, MouseY
 Pos := PixelToPos(MouseX, MouseY)
@@ -54,7 +59,13 @@ Debug("Mouse at: " Pos.X "x" Pos.Y)
 return
 
 F2::
-EnterITOPODOptimal()
+MoveMouseCoordinates(Coordinates.BeardsOfPower)
+if (FeatureUnlocked(Coordinates.BeardsOfPower)) {
+            ActivateBeards([
+                Coordinates.BeardsOfPowerTheFuManchu,
+                Coordinates.BeardsOfPowerTheReverseHitler
+            ])
+        }
 return
 
 F3::
@@ -65,7 +76,7 @@ Debug(PCol)
 return
 
 F4::
-OneHundredLevelChallenge()
+NoAugsChallenge()
 return
 
 F5::
@@ -143,13 +154,13 @@ ActivateBeards(BeardPositions) {
 }
 
 FeatureUnlocked(Position) {
-    UnLockedColors := ["0xFFFFFF", "0xBA13A7"]
+    UnLockedColors := ["0xFFFFFF", "0xBA13A7", "0xF5F5F5", "0xD2D2D2"]
     PCol := PixelGetColor(PosToPixel(Position).X, PosToPixel(Position).Y)
 
     Unlocked := false
 
-    for LockCol in UnLockedColors {
-        if (PCol == LockCol) {
+    for Col in UnLockedColors {
+        if (PCol == Col) {
             Unlocked := true
             break
         }
@@ -161,20 +172,26 @@ FeatureUnlocked(Position) {
 }
 
 FightUntilDead() {
-    DeadColor := "0xFFFFFF"
-    DeadCheckCoordinates := PosToPixel(Coordinates.FightBossDeadCheck)
+    White := "0xFFFFFF"
     IAmDead := false
+    ButtonCoordinates := PosToPixel(Coordinates.FightBossDeadCheckStopBtn)
+    BarCoordinates := PosToPixel(Coordinates.FightBossDeadCheckLifeBar)
 
     MoveMouseCoordinates(Coordinates.FightBoss)
     MoveMouseCoordinates(Coordinates.FightBossNuke)
 
-    DeadStartTime := A_TickCount
-    while (!IAmDead && A_TickCount - DeadStartTime < 10000) {
+    Loop {
         MoveMouseCoordinates(Coordinates.FightBossFight)
-        Sleep 500
-        PCol := PixelGetColor(DeadCheckCoordinates.X, DeadCheckCoordinates.Y)
+        Sleep 1000
 
-        IAmDead := PCol == DeadColor
+        ButtonColor := PixelGetColor(ButtonCoordinates.X, ButtonCoordinates.Y)
+        if (ButtonColor != White) {
+
+            BarColor := PixelGetColor(BarCoordinates.X, BarCoordinates.Y)
+            if (BarColor == White) {
+                break
+            }
+        }
     }
 }
 

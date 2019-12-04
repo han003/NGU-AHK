@@ -38,19 +38,14 @@ NoAugsChallenge(TargetBoss := 58, LastHighestBoss := 1) {
             ])
         }
 
-        ; Fight in ITOPOD
-        EnterITOPODOptimal()
-
         ; Rebirth loop
         While (A_TickCount - StartTime < RunTimeMin * 60 * 1000) {
             BossObj := Fight(CurrentBoss)
             CurrentBoss := BossObj.CurrentBoss
             OldBoss := BossObj.OldBoss
           
-            ; Go to zone
-            if (OldBoss.Nr != CurrentBoss.Nr) {
-                GoToFurthestAdventureZoneLowLevel()
-            }
+            ; Fight in ITOPOD
+            EnterITOPODOptimal()
             
             MoveMouseCoordinates(Coordinates.Wandoos)
             DistributeEnergyCap(Coordinates.WandoosEnergyIncrease)
