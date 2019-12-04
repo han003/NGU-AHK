@@ -11,6 +11,7 @@ SetMouseDelay 32
 #Include Bosses.ahk
 #Include BasicChallenge.ahk
 #Include 100LevelChallenge.ahk
+#Include NoAugsChallenge.ahk
 
 global UserHighestZone := 150
 global WindowName := "NGU Idle"
@@ -53,7 +54,7 @@ Debug("Mouse at: " Pos.X "x" Pos.Y)
 return
 
 F2::
-MoneyPitFeedAndSpin()
+EnterITOPODOptimal()
 return
 
 F3::
@@ -84,6 +85,13 @@ return
 Esc::
 ExitApp
 return
+
+EnterITOPODOptimal() {
+    MoveMouseCoordinates(Coordinates.Adventure)
+    MoveMouseCoordinates(Coordinates.AdventureEnterITOPOD)
+    MoveMouseCoordinates(Coordinates.AdventureITOPODOptimal)
+    MoveMouseCoordinates(Coordinates.AdventureITOPODEnter)
+}
 
 GetFightBossColorString() {
     ColorString := ""
@@ -124,11 +132,14 @@ GetCurrentBoss(CurrentBoss := "") {
     return CurrentBoss
 }
 
-ActivateBeard(BeardPosition) {
+ActivateBeards(BeardPositions) {
     MoveMouseCoordinates(Coordinates.BeardsOfPower)
     MoveMouseCoordinates(Coordinates.BeardsOfPowerClear)
-    MoveMouseCoordinates(BeardPosition)
-    MoveMouseCoordinates(Coordinates.BeardsOfPowerActiveToggle)
+
+    for Beard in BeardPositions {
+        MoveMouseCoordinates(Beard)
+        MoveMouseCoordinates(Coordinates.BeardsOfPowerActiveToggle)
+    }
 }
 
 FeatureUnlocked(Position) {
@@ -157,7 +168,8 @@ FightUntilDead() {
     MoveMouseCoordinates(Coordinates.FightBoss)
     MoveMouseCoordinates(Coordinates.FightBossNuke)
 
-    while (!IAmDead) {
+    DeadStartTime := A_TickCount
+    while (!IAmDead && A_TickCount - DeadStartTime < 10000) {
         MoveMouseCoordinates(Coordinates.FightBossFight)
         Sleep 500
         PCol := PixelGetColor(DeadCheckCoordinates.X, DeadCheckCoordinates.Y)

@@ -52,7 +52,7 @@ BasicChallenge(TargetBoss := 58) {
 
         ; Grow my beard
         if (FeatureUnlocked(Coordinates.BeardsOfPower)) {
-            ActivateBeard(Coordinates.BeardsOfPowerTheFuManchu)
+            ActivateBeards(Coordinates.BeardsOfPowerTheFuManchu)
         }
 
         While (A_TickCount - StartTime < RunTimeMin * 60 * 1000) {
