@@ -13,35 +13,34 @@ Coordinates.MagicCapButton := {X: 0.69984447900466562, Y: 0.097708082026537996}
 Coordinates.SideMenuRebirth := {X: 0.16096423017107309, Y: 0.7056694813027744}
 
 ; INVENTORY
-Coordinates.InventoryCube := {X: 867, Y: 173}
-Coordinates.InventoryWeapon := {X: 814, Y: 162}
-Coordinates.InventoryHelm := {X: 730, Y: 80}
-Coordinates.InventoryChest := {X: 740, Y: 167}
-Coordinates.InventoryLegs := {X: 756, Y: 226}
-Coordinates.InventoryBoots := {X: 738, Y: 313}
-Coordinates.InventoryAccessory1 := {X: 657, Y: 100}
-Coordinates.InventoryAccessory2 := {X: 663, Y: 159}
-Coordinates.InventoryAccessory3 := {X: 636, Y: 221}
-Coordinates.InventoryAccessory4 := {X: 668, Y: 299}
+Coordinates.InventoryCube := {X: 0.65241057542768277, Y: 0.20868516284680338}
+Coordinates.InventoryWeapon := {X: 0.59097978227060655, Y: 0.21712907117008443}
+Coordinates.InventoryHelm := {X: 0.55754276827371696, Y: 0.13872135102533173}
+Coordinates.InventoryChest := {X: 0.54665629860031106, Y: 0.21954161640530759}
+Coordinates.InventoryLegs := {X: 0.54510108864696738, Y: 0.2943305186972256}
+Coordinates.InventoryBoots := {X: 0.5528771384136858, Y: 0.3835946924004825}
+Coordinates.InventoryAccessory1 := {X: 0.49533437013996889, Y: 0.14234016887816647}
+Coordinates.InventoryAccessory2 := {X: 0.48989113530326595, Y: 0.22677925211097708}
+Coordinates.InventoryAccessory3 := {X: 0.49455676516329705, Y: 0.31966224366706875}
+Coordinates.InventoryAccessory4 := {X: 0.48600311041990668, Y: 0.37273823884197826}
 
-Coordinates.InventoryX1 := 458
-Coordinates.InventoryX2 := 524
-Coordinates.InventoryX3 := 572
-Coordinates.InventoryX4 := 689
-Coordinates.InventoryX5 := 718
+Coordinates.InventoryX1 := 0.37013996889580092
+Coordinates.InventoryX2 := 0.41679626749611198
+Coordinates.InventoryX3 := 0.46967340590979784
+Coordinates.InventoryX4 := 0.52410575427682737
+Coordinates.InventoryX6:= 0.57076205287713844
+Coordinates.InventoryX7 := 0.63063763608087087
+Coordinates.InventoryX8 := 0.73328149300155521
+Coordinates.InventoryX9 := 0.78149300155520995
+Coordinates.InventoryX10 := 0.82737169517884912
+Coordinates.InventoryX11 := 0.88024883359253503
+Coordinates.InventoryX12 := 0.93856920684292378
 
-Coordinates.InventoryY1 := 477
-Coordinates.InventoryY2 := 560
-Coordinates.InventoryY3 := 652
-Coordinates.InventoryY4 := 696
-Coordinates.InventoryY5 := 770
-Coordinates.InventoryY6 := 829
-Coordinates.InventoryY7 := 901
-Coordinates.InventoryY8 := 995
-Coordinates.InventoryY9 := 1061
-Coordinates.InventoryY10 := 1130
-Coordinates.InventoryY11 := 1179
-Coordinates.InventoryY12 := 1263
+Coordinates.InventoryY1 := 0.55488540410132692
+Coordinates.InventoryY2 := 0.63932448733413749
+Coordinates.InventoryY3 := 0.73220747889022919
+Coordinates.InventoryY4 := 0.78528347406513876
+Coordinates.InventoryY5 := 0.87937273823884199
 
 ; FEATURES
 Coordinates.BasicTraining := {X: 0.29626749611197511, Y: 0.089264173703256941}

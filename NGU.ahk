@@ -59,13 +59,16 @@ Debug("Mouse at: " Pos.X "x" Pos.Y)
 return
 
 F2::
-MoveMouseCoordinates(Coordinates.BeardsOfPower)
-if (FeatureUnlocked(Coordinates.BeardsOfPower)) {
-            ActivateBeards([
-                Coordinates.BeardsOfPowerTheFuManchu,
-                Coordinates.BeardsOfPowerTheReverseHitler
-            ])
-        }
+Sleep 1000
+Loop {
+    UseBoosts(Coordinates.InventoryCube)
+    MergeItems({X: Coordinates.InventoryX12,Y: Coordinates.InventoryY3})
+    MergeItems({X: Coordinates.InventoryX11,Y: Coordinates.InventoryY3})
+    MergeItems({X: Coordinates.InventoryX11,Y: Coordinates.InventoryY4})
+    MergeItems({X: Coordinates.InventoryX10,Y: Coordinates.InventoryY5})
+
+    Sleep 5000
+}
 return
 
 F3::
