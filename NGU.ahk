@@ -13,6 +13,7 @@ SetMouseDelay 32
 #Include 100LevelChallenge.ahk
 #Include NoAugsChallenge.ahk
 #Include TrollChallenge.ahk
+#Include 30MinRun.ahk
 
 global UserHighestZone := 150
 global WindowName := "NGU Idle"

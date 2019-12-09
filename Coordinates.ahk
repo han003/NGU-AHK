@@ -58,6 +58,18 @@ Coordinates.Yggdrasil := {X: 0.29471228615863143, Y: 0.60554885404101322}
 Coordinates.GoldDiggers := {X: 0.29626749611197511, Y: 0.64897466827503014}
 Coordinates.BeardsOfPower := {X: 0.29704510108864696, Y: 0.69722557297949339}
 
+; ADVANCED TRAINING
+Coordinates.AdvancedTrainingAdventureThoughnessPlus := {X: 0.92846034214618978, Y: 0.39927623642943305}
+Coordinates.AdvancedTrainingAdventureThoughnessMinus := {X: 0.96578538102643852, Y: 0.39445114595898673}
+Coordinates.AdvancedTrainingAdventurePowerPlus := {X: 0.9253499222395023, Y: 0.46562123039806996}
+Coordinates.AdvancedTrainingAdventurePowerMinus := {X: 0.96500777604976673, Y: 0.45597104945717731}
+Coordinates.AdvancedTrainingAdventureBlockDamagePlus := {X: 0.92379471228615861, Y: 0.52472858866103744}
+Coordinates.AdvancedTrainingAdventureBlockDamageMinus := {X: 0.96267496111975115, Y: 0.52834740651387213}
+Coordinates.AdvancedTrainingAdventureWandoosEnergyPlus := {X: 0.92457231726283051, Y: 0.59951749095295537}
+Coordinates.AdvancedTrainingAdventureWandoosEnergyMinus := {X: 0.9681181959564541, Y: 0.59227985524728588}
+Coordinates.AdvancedTrainingAdventureWandoosMagicPlus := {X: 0.92223950233281493, Y: 0.65379975874547647}
+Coordinates.AdvancedTrainingAdventureWandoosMagicMinus := {X: 0.96267496111975115, Y: 0.6550060313630881}
+
 ; MONEY PIT
 Coordinates.MoneyPitFeed := {X: 0.46034214618973562, Y: 0.30398069963811819}
 Coordinates.MoneyPitFeedYes := {X: 0.45489891135303268, Y: 0.54885404101326896}
@@ -77,6 +89,10 @@ Coordinates.BloodMagicFiftyPapercutsCap := {X: 0.5956454121306376, Y: 0.45838359
 Coordinates.BloodMagicABigAssHickeyIncrease := {X: 0.51866251944012443, Y: 0.51145958986730999}
 Coordinates.BloodMagicABigAssHickeyDecrease := {X: 0.55054432348367033, Y: 0.50422195416164051}
 Coordinates.BloodMagicABigAssHickeyCap := {X: 0.59486780715396581, Y: 0.51628468033775632}
+
+Coordinates.BloodMagicBarbedWireIncrease := {X: 0.5108864696734059, Y: 0.55971049457177324}
+Coordinates.BloodMagicBarbedWireDecrease := {X: 0.54898911353032664, Y: 0.56332931242460793}
+Coordinates.BloodMagicBarbedWireCap := {X: 0.58631415241057538, Y: 0.56936067551266589}
 
 ; WANDOOS
 Coordinates.WandoosEnergyIncrease := {X: 0.57620528771384139, Y: 0.43063932448733416}
