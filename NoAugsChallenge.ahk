@@ -1,4 +1,6 @@
-NoAugsChallenge(TargetBoss := 58, LastHighestBoss := 1) {
+NoAugsChallenge(TargetBoss := 58) {
+    LastHighestBoss := 1
+
     ClearDiggers() {
         if (FeatureUnlocked(Coordinates.GoldDiggers) && FeatureUnlocked(Coordinates.TimeMachine)) {
             MoveMouseCoordinates(Coordinates.GoldDiggers)
@@ -44,7 +46,7 @@ NoAugsChallenge(TargetBoss := 58, LastHighestBoss := 1) {
             MoveMouseCoordinates(Coordinates.RebirthChallenges)
             MoveMouseCoordinates(Coordinates.RebirthChallengesNoAugs)
             MoveMouseCoordinates(Coordinates.RebirthYes)
-            NoAugsChallenge(TargetBoss, CurrentBoss.Nr)
+            NoAugsChallenge(TargetBoss)
         }
 
         return {
@@ -54,7 +56,7 @@ NoAugsChallenge(TargetBoss := 58, LastHighestBoss := 1) {
     }
     
     Loop {
-        RunTimeMin := LastHighestBoss >= 35 ? 35 : 20
+        RunTimeMin := LastHighestBoss >= 35 ? 35 : 18
         CurrentBoss := Bosses[1]
         StartTime := A_TickCount
 
@@ -89,7 +91,7 @@ NoAugsChallenge(TargetBoss := 58, LastHighestBoss := 1) {
                 MoveMouseCoordinates(Coordinates.TimeMachineMultiplierReduce)
 
                 ; Distribute
-                if (CurrentMin < 12) {
+                if (CurrentMin < 15) {
                     DistributeEnergyCap(Coordinates.TimeMachineSpeedIncrease)
                     MoveMouseCoordinates(Coordinates.TimeMachineMultiplierIncrease)
                 }
@@ -152,6 +154,9 @@ NoAugsChallenge(TargetBoss := 58, LastHighestBoss := 1) {
 
         ; Use the money
         MoneyPitFeedAndSpin()
+
+        ; Update last highest
+        LastHighestBoss := CurrentBoss.Nr
 
         ; Start anew
         Rebirth()
