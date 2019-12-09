@@ -127,21 +127,22 @@ NoAugsChallenge(TargetBoss := 58, LastHighestBoss := 1) {
             MoveMouseCoordinates(Coordinates.WandoosMagicDecrease)
         }
 
-        ; Turn off digger
-        ClearDiggers()
-
         ; Just reclaim
         Send "rt"
+
+        ; Wandoos
+        MoveMouseCoordinates(Coordinates.Wandoos)
+        DistributeEnergyCap(Coordinates.WandoosEnergyIncrease)
 
         ; Use blood magic
         if (FeatureUnlocked(Coordinates.BloodMagic)) {
             MoveMouseCoordinates(Coordinates.BloodMagic)
 
             ; Distribute
-            MoveMouseCoordinates(BloodMagicPokeYourselfCap)
-            MoveMouseCoordinates(BloodMagicFiftyPapercutsCap)
-            MoveMouseCoordinates(BloodMagicABigAssHickeyCap)
-            MoveMouseCoordinates(BloodMagicBarbedWireCap)
+            MoveMouseCoordinates(Coordinates.BloodMagicPokeYourselfCap)
+            MoveMouseCoordinates(Coordinates.BloodMagicFiftyPapercutsCap)
+            MoveMouseCoordinates(Coordinates.BloodMagicABigAssHickeyCap)
+            MoveMouseCoordinates(Coordinates.BloodMagicBarbedWireCap)
 
             Sleep 120000 ; 2 min
         }
