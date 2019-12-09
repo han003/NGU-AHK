@@ -106,9 +106,9 @@ NoAugsChallenge(TargetBoss := 58) {
                 MoveMouseCoordinates(Coordinates.AdvancedTrainingAdventureWandoosMagicMinus)
 
                 ; Distribute
-                if (CurrentMin >= 25 && CurrentMin <= 30) {
+                if (CurrentMin >= 25 && CurrentMin <= 29) {
                     DistributeEnergyIdlePercent(Coordinates.AdvancedTrainingAdventureWandoosEnergyPlus, 50)
-                    DistributeMagicIdlePercent(Coordinates.AdvancedTrainingAdventureWandoosMagicPlus, 50)
+                    DistributeEnergyIdlePercent(Coordinates.AdvancedTrainingAdventureWandoosMagicPlus, 50)
                 }  
             }
 
