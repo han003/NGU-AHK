@@ -5,11 +5,6 @@ NoAugsChallenge(TargetBoss := 58, LastHighestBoss := 1) {
             MoveMouseCoordinates(Coordinates.GoldDiggersClearActive)
             MoveMouseCoordinates(Coordinates.GoldDiggersPage1)
             MoveMouseCoordinates(Coordinates.GoldDiggersTopRightCap)
-
-            Loop 5 {
-                Click
-                Sleep 50
-            }
         }
     }
 
@@ -18,15 +13,7 @@ NoAugsChallenge(TargetBoss := 58, LastHighestBoss := 1) {
             MoveMouseCoordinates(Coordinates.GoldDiggers)
             MoveMouseCoordinates(Coordinates.GoldDiggersClearActive)
             MoveMouseCoordinates(Coordinates.GoldDiggersPage1)
-            MoveMouseCoordinates(Coordinates.GoldDiggersBottomLeftInput)
-            Send 1
-            MoveMouseCoordinates(Coordinates.GoldDiggersBottomLeftActivate)
-            MoveMouseCoordinates(Coordinates.GoldDiggersBottomLeftPlus)
-
-            Loop 5 {
-                Click
-                Sleep 50
-            }
+            MoveMouseCoordinates(Coordinates.GoldDiggersBottomLeftCap)
         }
     }
 
@@ -86,34 +73,34 @@ NoAugsChallenge(TargetBoss := 58, LastHighestBoss := 1) {
 
             UseGoldDiggerWandoos()
 
-            if (CurrentMin < 12) {
-                ; Time machine
-                if (FeatureUnlocked(Coordinates.TimeMachine)) {
-                    MoveMouseCoordinates(Coordinates.TimeMachine)
+            ; Time machine
+            if (FeatureUnlocked(Coordinates.TimeMachine)) {
+                MoveMouseCoordinates(Coordinates.TimeMachine)
 
-                    ; Reclaim
-                    DistributeEnergyCap(Coordinates.TimeMachineSpeedReduce)
-                    MoveMouseCoordinates(Coordinates.TimeMachineMultiplierReduce)
+                ; Reclaim
+                DistributeEnergyCap(Coordinates.TimeMachineSpeedReduce)
+                MoveMouseCoordinates(Coordinates.TimeMachineMultiplierReduce)
 
-                    ; Distribute
+                ; Distribute
+                if (CurrentMin < 12) {
                     DistributeEnergyCap(Coordinates.TimeMachineSpeedIncrease)
                     MoveMouseCoordinates(Coordinates.TimeMachineMultiplierIncrease)
                 }
             }
 
-            if (CurrentMin >= 25) {
-                ; Advanced training
-                if (FeatureUnlocked(Coordinates.AdvancedTraining)) {
-                    MoveMouseCoordinates(Coordinates.AdvancedTraining)
+            ; Advanced training
+            if (FeatureUnlocked(Coordinates.AdvancedTraining)) {
+                MoveMouseCoordinates(Coordinates.AdvancedTraining)
 
-                    ; Reclaim
-                    DistributeEnergyCap(Coordinates.AdvancedTrainingAdventureWandoosEnergyMinus)
-                    MoveMouseCoordinates(Coordinates.AdvancedTrainingAdventureWandoosMagicMinus)
+                ; Reclaim
+                DistributeEnergyCap(Coordinates.AdvancedTrainingAdventureWandoosEnergyMinus)
+                MoveMouseCoordinates(Coordinates.AdvancedTrainingAdventureWandoosMagicMinus)
 
-                    ; Distribute
+                ; Distribute
+                if (CurrentMin >= 25 && CurrentMin <= 30) {
                     DistributeEnergyIdlePercent(Coordinates.AdvancedTrainingAdventureWandoosEnergyPlus, 50)
                     DistributeMagicIdlePercent(Coordinates.AdvancedTrainingAdventureWandoosMagicPlus, 50)
-                }
+                }  
             }
 
             ; Wandoos
