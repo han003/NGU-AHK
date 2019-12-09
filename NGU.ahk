@@ -2,7 +2,7 @@
 
 CoordMode "Mouse", "Window"
 CoordMode "Pixel", "Window"
-SetMouseDelay 32
+SetMouseDelay 30
 
 #SingleInstance force
 

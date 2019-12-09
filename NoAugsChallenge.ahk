@@ -121,13 +121,16 @@ NoAugsChallenge(TargetBoss := 58, LastHighestBoss := 1) {
             DistributeEnergyCap(Coordinates.WandoosEnergyDecrease)
             MoveMouseCoordinates(Coordinates.WandoosMagicDecrease)
 
-            DistributeEnergyCap(Coordinates.WandoosEnergyDecrease)
-            Loop 60 {
+            Loop 70 {
                 MoveMouseCoordinates(Coordinates.WandoosMagicIncrease)
                 MoveMouseCoordinates(Coordinates.WandoosEnergyIncrease)
                 
                 Sleep 1000
             }
+
+            ; Reclaim wandoos
+            DistributeEnergyCap(Coordinates.WandoosEnergyDecrease)
+            MoveMouseCoordinates(Coordinates.WandoosMagicDecrease)
         }
 
         ; Just reclaim
