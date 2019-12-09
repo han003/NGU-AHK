@@ -1,4 +1,11 @@
 NoAugsChallenge(TargetBoss := 58, LastHighestBoss := 1) {
+    ClearDiggers() {
+        if (FeatureUnlocked(Coordinates.GoldDiggers) && FeatureUnlocked(Coordinates.TimeMachine)) {
+            MoveMouseCoordinates(Coordinates.GoldDiggers)
+            MoveMouseCoordinates(Coordinates.GoldDiggersClearActive)
+        }
+    }
+
     UseGoldDiggerWandoos() {
         if (FeatureUnlocked(Coordinates.GoldDiggers) && FeatureUnlocked(Coordinates.TimeMachine)) {
             MoveMouseCoordinates(Coordinates.GoldDiggers)
@@ -119,6 +126,9 @@ NoAugsChallenge(TargetBoss := 58, LastHighestBoss := 1) {
             DistributeEnergyCap(Coordinates.WandoosEnergyDecrease)
             MoveMouseCoordinates(Coordinates.WandoosMagicDecrease)
         }
+
+        ; Turn off digger
+        ClearDiggers()
 
         ; Just reclaim
         Send "rt"
