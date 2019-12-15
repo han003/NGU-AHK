@@ -60,15 +60,35 @@ Debug("Mouse at: " Pos.X "x" Pos.Y)
 return
 
 F2::
-Sleep 1000
 Loop {
-    UseBoosts(Coordinates.InventoryCube)
-    MergeItems({X: Coordinates.InventoryX12,Y: Coordinates.InventoryY3})
-    MergeItems({X: Coordinates.InventoryX11,Y: Coordinates.InventoryY3})
-    MergeItems({X: Coordinates.InventoryX11,Y: Coordinates.InventoryY4})
-    MergeItems({X: Coordinates.InventoryX10,Y: Coordinates.InventoryY5})
+    MergeItems(Coordinates.InventoryWeapon)
+    MergeItems(Coordinates.InventoryHelm)
+    MergeItems(Coordinates.InventoryChest)
+    MergeItems(Coordinates.InventoryLegs)
+    MergeItems(Coordinates.InventoryBoots)
+    MergeItems(Coordinates.InventoryAccessory1)
+    MergeItems(Coordinates.InventoryAccessory2)
+    MergeItems(Coordinates.InventoryAccessory6)
+    MergeItems({X: Coordinates.InventoryX4, Y: Coordinates.InventoryY1})
+    MergeItems({X: Coordinates.InventoryX1, Y: Coordinates.InventoryY4})
+    MergeItems({X: Coordinates.InventoryX2, Y: Coordinates.InventoryY4})
+    MergeItems({X: Coordinates.InventoryX11, Y: Coordinates.InventoryY3})
+    MergeItems({X: Coordinates.InventoryX12, Y: Coordinates.InventoryY3})
 
-    Sleep 5000
+    UseBoosts(Coordinates.InventoryWeapon)
+    UseBoosts(Coordinates.InventoryHelm)
+    UseBoosts(Coordinates.InventoryChest)
+    UseBoosts(Coordinates.InventoryLegs)
+    UseBoosts(Coordinates.InventoryBoots)
+    UseBoosts(Coordinates.InventoryAccessory1)
+    UseBoosts(Coordinates.InventoryAccessory2)
+    UseBoosts(Coordinates.InventoryAccessory6)
+    UseBoosts({X: Coordinates.InventoryX4, Y: Coordinates.InventoryY1})
+    UseBoosts({X: Coordinates.InventoryX1, Y: Coordinates.InventoryY4})
+    UseBoosts({X: Coordinates.InventoryX2, Y: Coordinates.InventoryY4})
+    UseBoosts(Coordinates.InventoryCube)
+
+    Sleep 10000
 }
 return
 
@@ -100,6 +120,72 @@ return
 Esc::
 ExitApp
 return
+
+AdventureBossFighting() {
+    Loop {
+        Minutes := 5
+        StartTime := A_TickCount
+
+        ; Go adventure
+        MoveMouseCoordinates(Coordinates.Adventure)
+        
+        ; Disable idle
+        Send "Q"
+
+        ; Use skills for X min
+        while (A_TickCount - StartTime < 1000 * 60 * Minutes) {
+            Send "X"
+            Sleep 5
+            Send "Z"
+            Sleep 5
+            Send "H"
+            Sleep 5
+            Send "D"
+            Sleep 5
+            Send "A"
+            Sleep 5
+            Send "Y"
+            Sleep 5
+            Send "T"
+            Sleep 5
+            Send "E"
+            Sleep 5
+            Send "W"
+            Sleep 5
+        }
+
+        ; Enable idle
+        Send "Q"
+
+        ; Go to inventory and manage stuff
+        MoveMouseCoordinates(Coordinates.Inventory)
+
+        MergeItems(Coordinates.InventoryWeapon)
+        MergeItems(Coordinates.InventoryHelm)
+        MergeItems(Coordinates.InventoryChest)
+        MergeItems(Coordinates.InventoryLegs)
+        MergeItems(Coordinates.InventoryBoots)
+        MergeItems(Coordinates.InventoryAccessory2)
+
+        UseBoosts(Coordinates.InventoryWeapon)
+        UseBoosts(Coordinates.InventoryHelm)
+        UseBoosts(Coordinates.InventoryChest)
+        UseBoosts(Coordinates.InventoryLegs)
+        UseBoosts(Coordinates.InventoryBoots)
+        UseBoosts(Coordinates.InventoryCube)
+
+        MergeItems({X: Coordinates.InventoryX10, Y: Coordinates.InventoryY3})
+        MergeItems({X: Coordinates.InventoryX11, Y: Coordinates.InventoryY3})
+        MergeItems({X: Coordinates.InventoryX12, Y: Coordinates.InventoryY3})
+        MergeItems({X: Coordinates.InventoryX10, Y: Coordinates.InventoryY4})
+        MergeItems({X: Coordinates.InventoryX11, Y: Coordinates.InventoryY4})
+        MergeItems({X: Coordinates.InventoryX12, Y: Coordinates.InventoryY4})
+        MergeItems({X: Coordinates.InventoryX10, Y: Coordinates.InventoryY5})
+        MergeItems({X: Coordinates.InventoryX4, Y: Coordinates.InventoryY1})
+        MergeItems({X: Coordinates.InventoryX1, Y: Coordinates.InventoryY4})
+        MergeItems({X: Coordinates.InventoryX2, Y: Coordinates.InventoryY4})
+    }
+}
 
 EnterITOPODOptimal() {
     MoveMouseCoordinates(Coordinates.Adventure)

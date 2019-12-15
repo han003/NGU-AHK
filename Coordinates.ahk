@@ -19,10 +19,12 @@ Coordinates.InventoryHelm := {X: 0.55754276827371696, Y: 0.13872135102533173}
 Coordinates.InventoryChest := {X: 0.54665629860031106, Y: 0.21954161640530759}
 Coordinates.InventoryLegs := {X: 0.54510108864696738, Y: 0.2943305186972256}
 Coordinates.InventoryBoots := {X: 0.5528771384136858, Y: 0.3835946924004825}
-Coordinates.InventoryAccessory1 := {X: 0.49533437013996889, Y: 0.14234016887816647}
-Coordinates.InventoryAccessory2 := {X: 0.48989113530326595, Y: 0.22677925211097708}
-Coordinates.InventoryAccessory3 := {X: 0.49455676516329705, Y: 0.31966224366706875}
-Coordinates.InventoryAccessory4 := {X: 0.48600311041990668, Y: 0.37273823884197826}
+Coordinates.InventoryAccessory1 := {X: 0.48055987558320373, Y: 0.13751507840772015}
+Coordinates.InventoryAccessory2 := {X: 0.49688958009331258, Y: 0.2074788902291918}
+Coordinates.InventoryAccessory3 := {X: 0.49611197511664074, Y: 0.28950542822677927}
+Coordinates.InventoryAccessory4 := {X: 0.50155520995334368, Y: 0.38480096501809408}
+Coordinates.InventoryAccessory5 := {X: 0.43934681181959567, Y: 0.39565741857659831}
+Coordinates.InventoryAccessory6 := {X: 0.45101088646967341, Y: 0.27261761158021713}
 
 Coordinates.InventoryX1 := 0.37013996889580092
 Coordinates.InventoryX2 := 0.41679626749611198
