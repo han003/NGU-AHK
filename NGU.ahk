@@ -61,31 +61,8 @@ return
 
 F2::
 Loop {
-    MergeItems(Coordinates.InventoryWeapon)
-    MergeItems(Coordinates.InventoryHelm)
-    MergeItems(Coordinates.InventoryChest)
-    MergeItems(Coordinates.InventoryLegs)
-    MergeItems(Coordinates.InventoryBoots)
-    MergeItems(Coordinates.InventoryAccessory1)
-    MergeItems(Coordinates.InventoryAccessory2)
-    MergeItems(Coordinates.InventoryAccessory6)
+    MergeItems({X: Coordinates.InventoryX3, Y: Coordinates.InventoryY5})
     MergeItems({X: Coordinates.InventoryX4, Y: Coordinates.InventoryY1})
-    MergeItems({X: Coordinates.InventoryX1, Y: Coordinates.InventoryY4})
-    MergeItems({X: Coordinates.InventoryX2, Y: Coordinates.InventoryY4})
-    MergeItems({X: Coordinates.InventoryX11, Y: Coordinates.InventoryY3})
-    MergeItems({X: Coordinates.InventoryX12, Y: Coordinates.InventoryY3})
-
-    UseBoosts(Coordinates.InventoryWeapon)
-    UseBoosts(Coordinates.InventoryHelm)
-    UseBoosts(Coordinates.InventoryChest)
-    UseBoosts(Coordinates.InventoryLegs)
-    UseBoosts(Coordinates.InventoryBoots)
-    UseBoosts(Coordinates.InventoryAccessory1)
-    UseBoosts(Coordinates.InventoryAccessory2)
-    UseBoosts(Coordinates.InventoryAccessory6)
-    UseBoosts({X: Coordinates.InventoryX4, Y: Coordinates.InventoryY1})
-    UseBoosts({X: Coordinates.InventoryX1, Y: Coordinates.InventoryY4})
-    UseBoosts({X: Coordinates.InventoryX2, Y: Coordinates.InventoryY4})
     UseBoosts(Coordinates.InventoryCube)
 
     Sleep 10000
